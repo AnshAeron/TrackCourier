@@ -1,0 +1,21 @@
+import api from "./api";
+
+export const getUsers = async () => {
+  const { data } = await api.get("/users");
+  return data;
+};
+
+export const createUser = async (user: any) => {
+  const { data } = await api.post("/users", user);
+  return data;
+};
+
+export const updateUser = async (id: number, user: any) => {
+  const { data } = await api.put(`/users/${id}`, user);
+  return data;
+};
+
+export const deleteUser = async (id: number) => {
+  const { data } = await api.delete(`/users/${id}`);
+  return data;
+};
