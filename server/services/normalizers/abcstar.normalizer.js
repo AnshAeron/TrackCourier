@@ -57,15 +57,22 @@ export const normalizeABCStar = (raw, trackingBaseUrl) => {
       weight: shipment.weight || "",
     },
 
-    travelHistory: history.map((event, index) => ({
-      date: event.timestamp?.split(" ")[0] || "",
-      time: event.timestamp?.split(" ")[1] || "",
-      title: event.message,
-      location: event.location,
-      state: index === 0 ? "current" : "done",
-      hasLink: false,
-    })),
+    travelHistory: history.map((event, index) => {
+      const isDelivered = (shipment.status || "").toUpperCase() === "DELIVERED";
 
+      return {
+        date: event.timestamp?.split(" ")[0] || "",
+        time: event.timestamp?.split(" ")[1] || "",
+        title: event.message,
+        location: event.location,
+        state: isDelivered
+          ? "done"
+          : index === history.length - 1
+            ? "current"
+            : "done",
+        hasLink: false,
+      };
+    }),
     confirmedAt: shipment.created_at || "",
 
     inTransitAt:

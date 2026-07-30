@@ -53,19 +53,18 @@ export const normalizeSkyNet = (raw, tracking_base_url) => {
       declaredValue: "",
     },
 
-    travelHistory: (shipment.docket_events || []).map((e) => ({
-      date: e.event_at?.split(" ")[0] || "",
-      time: e.event_at?.split(" ")[1] || "",
-      title: e.event_description || "",
-      location: e.event_location || "",
-      state:
-        e.event_state === "delivered"
-          ? "done"
-          : (e.event_state || "").includes("transit")
-            ? "current"
-            : "pending",
-      hasLink: false,
-    })),
+    travelHistory: (shipment.docket_events || []).map((e, index, arr) => {
+      const isDelivered = info["Status"]?.toUpperCase() === "DELIVERED";
+
+      return {
+        date: e.event_at?.split(" ")[0] || "",
+        time: e.event_at?.split(" ")[1] || "",
+        title: e.event_description || "",
+        location: e.event_location || "",
+        state: isDelivered ? "done" : index === 0 ? "current" : "done",
+        hasLink: false,
+      };
+    }),
 
     confirmedAt: info["Booking Date"] || "",
     inTransitAt: shipment.expected_datetime || "",

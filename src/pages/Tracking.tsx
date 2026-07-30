@@ -39,7 +39,7 @@ export default function Tracking() {
   console.log("URL ID:", id);
   const [shipment, setShipment] = useState<any>(null);
   const [copied, setCopied] = useState(false);
-  
+
   const redirected = useRef(false);
   useEffect(() => {
     if (!id) return;
@@ -48,17 +48,20 @@ export default function Tracking() {
         const data = await getShipment(id);
 
         console.log("Shipment Response:", data);
-        
-        
-if (
-  data.booking?.redirectOnly &&
-  data.booking?.trackingUrl &&
-  !redirected.current
-) {
-  redirected.current = true;
-  window.open(data.booking.trackingUrl, "_blank", "noopener,noreferrer");
-  return;
-}
+
+        if (
+          data.booking?.redirectOnly &&
+          data.booking?.trackingUrl &&
+          !redirected.current
+        ) {
+          redirected.current = true;
+          window.open(
+            data.booking.trackingUrl,
+            "_blank",
+            "noopener,noreferrer",
+          );
+          return;
+        }
         setShipment(data.booking);
       } catch (err) {
         console.error("API Error:", err);
@@ -68,7 +71,7 @@ if (
     fetchShipment();
   }, [id]);
 
- const hasShipment = shipment !== null;
+  const hasShipment = shipment !== null;
 
   function copyId() {
     if (!shipment) return;
@@ -77,11 +80,13 @@ if (
     setTimeout(() => setCopied(false), 1500);
   }
 
-  const summary = hasShipment? [
-    { icon: User, label: "Consignor", value: shipment?.consignor },
-    { icon: User, label: "Consignee", value: shipment?.consignee },
-    { icon: MapPin, label: "Destination", value: shipment?.destination },
-  ]:[];
+  const summary = hasShipment
+    ? [
+        { icon: User, label: "Consignor", value: shipment?.consignor },
+        { icon: User, label: "Consignee", value: shipment?.consignee },
+        { icon: MapPin, label: "Destination", value: shipment?.destination },
+      ]
+    : [];
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 space-y-5">
@@ -93,12 +98,8 @@ if (
               <Package className="h-6 w-6 text-brand-blue" />
             </div>
             <div>
-              <h2 className="font-bold text-slate-900">
-                Track Another Shipment
-              </h2>
-              <p className="text-sm text-slate-500">
-                Enter your Tracking ID / AWB Number
-              </p>
+              <h2 className="font-bold text-slate-900">Track Courier</h2>
+              <p className="text-sm text-slate-500">Enter your tracking id</p>
             </div>
           </div>
           <div className="md:w-[55%]">
@@ -151,7 +152,7 @@ if (
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm text-slate-400">Tracking ID</div>
+                <div className="text-sm text-slate-400">AWB Number</div>
                 <div className="inline-flex items-center gap-2">
                   <a
                     href={shipment.trackingUrl}
@@ -159,7 +160,7 @@ if (
                     rel="noopener noreferrer"
                     className="font-bold text-brand-blue hover:underline"
                   >
-                    {shipment.trackingId}
+                    {shipment.consignmentA || shipment.trackingId}
                   </a>
 
                   <button onClick={copyId}>
@@ -181,23 +182,33 @@ if (
           </div>
 
           {/* Travel history */}
-          <Panel title="Travel History" icon={Clock}>
+          <Panel title="Shipment History" icon={Clock}>
             <ol className="relative space-y-6">
+              
               {shipment.travelHistory.map((e, i) => {
+                const currentIndex =
+                  shipment.travelHistory.findIndex(
+                    (e: any) => e.state === "current",
+                  ) === -1
+                    ? shipment.travelHistory.length - 1
+                    : shipment.travelHistory.findIndex(
+                        (e: any) => e.state === "current",
+                      );
                 const isLast = i === shipment.travelHistory.length - 1;
-                const dot =
-                  e.state === "current"
-                    ? "bg-emerald-500"
-                    : e.state === "done"
-                      ? "bg-brand-blue"
-                      : "bg-slate-300";
+               const dot =
+                 i <= currentIndex ? "bg-emerald-500" : "bg-slate-300";
                 return (
                   <li
                     key={i}
                     className="relative grid grid-cols-[110px_1fr] gap-4 pl-6"
                   >
                     {!isLast && (
-                      <span className="absolute left-[7px] top-4 h-full w-0.5 bg-slate-200" />
+                      <>
+                        <span className="absolute left-[7px] top-4 h-full w-0.5 bg-slate-200" />
+                        {i < currentIndex && (
+                          <span className="absolute left-[7px] top-4 h-full w-0.5 bg-emerald-500" />
+                        )}
+                      </>
                     )}
                     <span
                       className={`absolute left-0 top-1 h-3.5 w-3.5 rounded-full ring-4 ring-white ${dot}`}
@@ -295,8 +306,8 @@ if (
               <div className="space-y-4">
                 <Detail
                   icon={Barcode}
-                  label="AWB Number"
-                  value={shipment.awbNumber}
+                  label="Tracking ID"
+                  value={shipment.consignmentA || shipment.trackingId}
                   color="text-brand-blue"
                 />
                 <Detail
@@ -459,4 +470,3 @@ function Detail({
     </div>
   );
 }
-
