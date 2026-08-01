@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://YOUR-SITE.netlify.app"],
+    origin: ["http://localhost:5173",  "https://trackmycourier.netlify.app"],
     credentials: true,
   }),
 );
