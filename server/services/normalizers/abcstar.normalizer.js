@@ -60,7 +60,14 @@ export const normalizeABCStar = (raw, trackingBaseUrl) => {
 
     service: "",
 
-    consignor: "",
+    consignor:
+      shipment.consignor ||
+      shipment.sender_name ||
+      shipment.shipper_name ||
+      shipment.shipper ||
+      shipment.sender ||
+      shipment.from_name ||
+      "",
     consignee: shipment.co_full_name || "",
 
     destination: shipment.destination || "",
@@ -69,8 +76,16 @@ export const normalizeABCStar = (raw, trackingBaseUrl) => {
     destinationCountry: shipment.destination || "",
 
     sender: {
-      name: "",
-      phone: "",
+      name:
+        shipment.consignor ||
+        shipment.sender_name ||
+        shipment.shipper_name ||
+        shipment.shipper ||
+        shipment.sender ||
+        shipment.from_name ||
+        "",
+      phone:
+        shipment.sender_phone || shipment.shipper_phone || shipment.phone || "",
     },
 
     receiver: {

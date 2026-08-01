@@ -10,12 +10,12 @@ export const createUser = async (user: any) => {
   return data;
 };
 
-export const updateUser = async (id: number, user: any) => {
+export const updateUser = async (id: string, user: any) => {
   const { data } = await api.put(`/users/${id}`, user);
   return data;
 };
 
-export const deleteUser = async (id: number) => {
+export const deleteUser = async (id: string) => {
   const { data } = await api.delete(`/users/${id}`);
   return data;
 };
