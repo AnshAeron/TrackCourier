@@ -16,8 +16,12 @@ export const normalizeSkyNet = (raw, tracking_base_url) => {
   const normalized = {
     trackingId: shipment.tracking_no,
     awbNumber: shipment.tracking_no,
-    trackingUrl: tracking_base_url + shipment.tracking_no,
-
+    trackingUrl: tracking_base_url
+      ? tracking_base_url.replace(
+          "{}",
+          encodeURIComponent(shipment.tracking_no),
+        )
+      : null,
     status: info["Status"] || "",
 
     carrier: "SkyNet",
@@ -75,6 +79,7 @@ export const normalizeSkyNet = (raw, tracking_base_url) => {
 
   console.log("✅ NORMALIZED RESPONSE:");
   console.log(JSON.stringify(normalized, null, 2));
+  console.log(JSON.stringify(shipment, null, 2));
 
   return normalized;
   

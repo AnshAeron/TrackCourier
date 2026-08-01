@@ -36,38 +36,65 @@ import { useRef } from "react";
 export default function Tracking() {
   const [params] = useSearchParams();
   const id = params.get("id") || "";
+  const [trackingNumber, setTrackingNumber] = useState(id);
+
+  useEffect(() => {
+    setTrackingNumber(id);
+  }, [id]);
+  
   console.log("URL ID:", id);
+  console.log("trackingNumber =", trackingNumber);
   const [shipment, setShipment] = useState<any>(null);
   const [copied, setCopied] = useState(false);
 
   const redirected = useRef(false);
   useEffect(() => {
     if (!id) return;
+
+     redirected.current = false;
     const fetchShipment = async () => {
       try {
         const data = await getShipment(id);
 
         console.log("Shipment Response:", data);
 
+        // Invalid tracking number
+        if (!data || !data.booking) {
+          alert("❌ Invalid Tracking / AWB Number");
+          setShipment(null);
+          return;
+        }
+
+        // Redirect providers (FedEx, DHL, etc.)
         if (
           data.booking?.redirectOnly &&
           data.booking?.trackingUrl &&
           !redirected.current
         ) {
           redirected.current = true;
-          window.open(
-            data.booking.trackingUrl,
-            "_blank",
-            "noopener,noreferrer",
-          );
-          return;
+
+          // Pehle page par shipment dikhao
+          setShipment(data.booking);
+
+          // Fir external tracking kholo
+          setTimeout(() => {
+            window.open(
+              data.booking.trackingUrl,
+              "_blank",
+              "noopener,noreferrer",
+            );
+          }, 300);
+        } else {
+          setShipment(data.booking);
         }
-        setShipment(data.booking);
       } catch (err) {
         console.error("API Error:", err);
+
+        alert("❌ Invalid Tracking / AWB Number");
+
+        setShipment(null);
       }
     };
-
     fetchShipment();
   }, [id]);
 
@@ -87,7 +114,6 @@ export default function Tracking() {
         { icon: MapPin, label: "Destination", value: shipment?.destination },
       ]
     : [];
-
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 space-y-5">
       {/* Track another shipment */}
@@ -103,11 +129,15 @@ export default function Tracking() {
             </div>
           </div>
           <div className="md:w-[55%]">
-            <TrackForm compact />
+            <TrackForm
+              compact
+              value={trackingNumber}
+              onChange={setTrackingNumber}
+            />
           </div>
         </div>
       </div>
-      {hasShipment && (
+      {hasShipment && !shipment.redirectOnly && (
         <>
           {/* Summary row */}
           <div className="rounded-2xl bg-white p-5 shadow-card">
@@ -160,7 +190,7 @@ export default function Tracking() {
                     rel="noopener noreferrer"
                     className="font-bold text-brand-blue hover:underline"
                   >
-                    {shipment.consignmentA || shipment.trackingId}
+                    {shipment.trackingId}
                   </a>
 
                   <button onClick={copyId}>
@@ -178,13 +208,13 @@ export default function Tracking() {
               deliveredAt={shipment.deliveredAt}
               confirmedAt={shipment.confirmedAt}
               inTransitAt={shipment.inTransitAt}
+              status={shipment.status}
             />
           </div>
 
           {/* Travel history */}
           <Panel title="Shipment History" icon={Clock}>
             <ol className="relative space-y-6">
-              
               {shipment.travelHistory.map((e, i) => {
                 const currentIndex =
                   shipment.travelHistory.findIndex(
@@ -195,8 +225,8 @@ export default function Tracking() {
                         (e: any) => e.state === "current",
                       );
                 const isLast = i === shipment.travelHistory.length - 1;
-               const dot =
-                 i <= currentIndex ? "bg-emerald-500" : "bg-slate-300";
+                const dot =
+                  i <= currentIndex ? "bg-emerald-500" : "bg-slate-300";
                 return (
                   <li
                     key={i}
@@ -280,24 +310,6 @@ export default function Tracking() {
                 </div>
               </div>
             </div>
-
-            <div className="relative mt-4 overflow-hidden rounded-lg">
-              <iframe
-                title="Delivery location"
-                src={`https://www.google.com/maps?q=${encodeURIComponent(shipment.mapQuery)}&output=embed`}
-                className="h-56 w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-              <a
-                href={`https://www.google.com/maps?q=${encodeURIComponent(shipment.mapQuery)}`}
-                target="_blank"
-                rel="noreferrer"
-                className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-brand-blue shadow-soft"
-              >
-                Open in Maps <ExternalLink className="h-3 w-3" />
-              </a>
-            </div>
           </Panel>
 
           {/* Shipment details */}
@@ -361,16 +373,29 @@ function Stepper({
   confirmedAt,
   inTransitAt,
   deliveredAt,
-}: {
+  status,
+}: { 
   confirmedAt: string;
   inTransitAt: string;
   deliveredAt: string;
+  status: string;
 }) {
+  const isDelivered = status?.toUpperCase() === "DELIVERED";
   return (
     <div className="mt-8">
       <div className="relative flex items-start justify-between">
-        <span className="absolute left-0 right-0 top-5 h-1 -translate-y-1/2 bg-slate-200" />
-        <span className="absolute left-0 top-5 h-1 w-1/2 -translate-y-1/2 bg-gradient-to-r from-emerald-500 to-brand-blue" />
+        <span
+          className={`absolute left-0 top-5 h-1 -translate-y-1/2 bg-gradient-to-r from-emerald-500 to-brand-blue ${
+            isDelivered ? "w-full" : "w-1/2"
+          }`}
+        />
+        <span
+          className={`absolute left-0 top-5 h-1 -translate-y-1/2 ${
+            isDelivered
+              ? "w-full bg-emerald-500"
+              : "w-1/2 bg-gradient-to-r from-emerald-500 to-brand-blue"
+          }`}
+        />
 
         <Step
           state="done"
@@ -379,22 +404,21 @@ function Stepper({
           icon={Package}
         />
         <Step
-          state="current"
+          state={isDelivered ? "done" : "current"}
           label="In Transit"
-          time={inTransitAt}
+          time={isDelivered ? "" : inTransitAt}
           icon={Truck}
         />
         <Step
-          state="pending"
+          state={isDelivered ? "done" : "pending"}
           label="Delivered"
-          time={deliveredAt}
+          time={isDelivered ? deliveredAt?.substring(0, 10) : ""}
           icon={Check}
         />
       </div>
     </div>
   );
 }
-
 function Step({
   state,
   label,
