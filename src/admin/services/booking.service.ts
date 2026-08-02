@@ -6,11 +6,32 @@ export interface BookingPayload {
   consignment_b: string;
 }
 
-export async function getBookings() {
-  const { data } = await api.get("/bookings");
+
+export async function getBookings(
+  limit = 50,
+  offset = 0,
+  filters = {
+    tracking: "",
+    provider: "",
+    awb: "",
+    from: "",
+    to: "",
+  },
+) {
+  const params = new URLSearchParams({
+    limit: String(limit),
+    offset: String(offset),
+    tracking: filters.tracking,
+    provider: filters.provider,
+    awb: filters.awb,
+    from: filters.from,
+    to: filters.to,
+  });
+
+  const { data } = await api.get(`/bookings?${params.toString()}`);
+
   return data;
 }
-
 export async function createBooking(payload: BookingPayload) {
   const { data } = await api.post("/bookings", payload);
   return data;

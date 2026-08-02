@@ -1,9 +1,19 @@
 import pool from "../db/database.js";
 
 // Get All Bookings
+// Get All Bookings
 export const getBookings = async (req, res) => {
   try {
-    const result = await pool.query(`
+    const limit = Number(req.query.limit) || 50;
+    const offset = Number(req.query.offset) || 0;
+
+    const tracking = req.query.tracking || "";
+    const provider = req.query.provider || "";
+    const awb = req.query.awb || "";
+    const from = req.query.from || "";
+    const to = req.query.to || "";
+
+    let query = `
       SELECT
         b.id,
         b.consignment_a,
@@ -14,8 +24,58 @@ export const getBookings = async (req, res) => {
       FROM bookings b
       JOIN courier_providers p
         ON b.provider_id = p.id
-      ORDER BY b.created_at DESC;
-    `);
+      WHERE 1=1
+    `;
+
+    const values = [];
+    let index = 1;
+
+    // Tracking ID Filter
+    if (tracking) {
+      query += ` AND b.consignment_a ILIKE $${index}`;
+      values.push(`%${tracking}%`);
+      index++;
+    }
+
+    // Provider Filter
+    if (provider) {
+      query += ` AND b.provider_id = $${index}`;
+      values.push(provider);
+      index++;
+    }
+
+    // Provider AWB Filter
+    if (awb) {
+      query += ` AND b.consignment_b ILIKE $${index}`;
+      values.push(`%${awb}%`);
+      index++;
+    }
+
+    // From Date
+    if (from) {
+      query += ` AND DATE(b.created_at) >= $${index}`;
+      values.push(from);
+      index++;
+    }
+
+    // To Date
+    if (to) {
+      query += ` AND DATE(b.created_at) <= $${index}`;
+      values.push(to);
+      index++;
+    }
+
+    // Sorting + Pagination
+    query += `
+      ORDER BY b.created_at DESC
+      LIMIT $${index}
+      OFFSET $${index + 1}
+    `;
+
+    values.push(limit);
+    values.push(offset);
+
+    const result = await pool.query(query, values);
 
     return res.status(200).json({
       success: true,

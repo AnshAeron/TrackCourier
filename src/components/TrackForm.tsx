@@ -34,7 +34,16 @@ export default function TrackForm({
 
     if (!trackingId) return;
 
-    navigate(`/track?id=${encodeURIComponent(trackingId)}`);
+    const url = `/track?id=${encodeURIComponent(trackingId)}`;
+
+    // Agar same page par same tracking ID hai,
+    // to page reload kar do taaki API dubara call ho.
+    if (window.location.pathname + window.location.search === url) {
+      window.location.reload();
+      return;
+    }
+
+    navigate(url);
   }
 console.log("External Value:", externalValue);
 console.log("Input Value:", value);

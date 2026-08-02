@@ -7,7 +7,6 @@ export default function Sidebar() {
   const role = user?.role || "STAFF";
 
   const links = [
-    { name: "Dashboard", path: "/admin" },
     { name: "Bookings", path: "/admin/bookings" },
 
     ...(role === "ADMIN"

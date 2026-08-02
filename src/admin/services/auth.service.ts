@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://trackcourier-jut7.onrender.com/api/auth";
+const API = "/api/auth";
 
 export const login = async (username: string, password: string) => {
   const { data } = await axios.post(`${API}/login`, {

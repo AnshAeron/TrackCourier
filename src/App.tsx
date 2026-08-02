@@ -7,7 +7,6 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Tracking from "./pages/Tracking";
 
-import Dashboard from "./admin/pages/Dashboard";
 import Providers from "./admin/pages/Providers";
 import Bookings from "./admin/pages/Bookings";
 import Users from "./admin/pages/Users";
@@ -54,16 +53,9 @@ export default function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route index element={<Navigate to="bookings" replace />} />
 
-            <Route
-              path="dashboard"
-              element={
-                <RoleRoute allowedRoles={["ADMIN", "STAFF"]}>
-                  <Dashboard />
-                </RoleRoute>
-              }
-            />
+           
 
             <Route
               path="bookings"
