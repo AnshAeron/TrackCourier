@@ -22,6 +22,7 @@ export default function Providers() {
 
   const [providers, setProviders] = useState<Provider[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);  
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -80,10 +81,12 @@ const handleDelete = async (id: string) => {
 
     console.log("Submitting form:", form);
 
+    setLoading(true);
+
     try {
-     const res = editingId
-       ? await updateProvider(editingId, form)
-       : await createProvider(form);
+      const res = editingId
+        ? await updateProvider(editingId, form)
+        : await createProvider(form);
       console.log("Create response:", res);
 
       if (!res.success) {
@@ -108,10 +111,12 @@ const handleDelete = async (id: string) => {
       } catch (err) {
         console.error("loadProviders failed:", err);
       }
-    } catch (err) {
-      console.error("createProvider failed:", err);
-      alert("Server Error");
-    }
+    }  catch (err) {
+  console.error("createProvider failed:", err);
+  alert("Server Error");
+} finally {
+  setLoading(false);
+}
   };
   return (
     <div>
@@ -170,9 +175,14 @@ const handleDelete = async (id: string) => {
           <div className="col-span-2">
             <button
               type="submit"
-              className="rounded-lg bg-blue-600 px-8 py-3 text-white hover:bg-blue-700"
+              disabled={loading}
+              className="rounded-lg bg-blue-600 px-8 py-3 text-white hover:bg-blue-700 disabled:opacity-60"
             >
-              {editingId ? "Update Provider" : "Save Provider"}
+              {loading
+                ? "Loading..."
+                : editingId
+                  ? "Update Provider"
+                  : "Save Provider"}
             </button>
           </div>
         </form>

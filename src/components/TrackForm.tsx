@@ -14,6 +14,8 @@ export default function TrackForm({
   onChange,
 }: Props) {
   const [value, setValue] = useState(externalValue || "");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,8 +33,12 @@ export default function TrackForm({
     e.preventDefault();
 
     const trackingId = value.trim();
+    setLoading(true);
 
-    if (!trackingId) return;
+    if (!trackingId) {
+      setLoading(false);
+      return;
+    }
 
     const url = `/track?id=${encodeURIComponent(trackingId)}`;
 
@@ -42,7 +48,6 @@ export default function TrackForm({
       window.location.reload();
       return;
     }
-
     navigate(url);
   }
 console.log("External Value:", externalValue);
@@ -65,10 +70,11 @@ console.log("TrackForm value =", value);
 
       <button
         type="submit"
-        className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-3.5 font-semibold text-white shadow-soft transition hover:bg-blue-700"
+        disabled={loading}
+        className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-blue px-6 py-3.5 font-semibold text-white shadow-soft transition hover:bg-blue-700 disabled:opacity-60"
       >
-        Track My Courier
-        <ArrowRight className="h-4 w-4" />
+        {loading ? "Loading..." : "Track My Courier"}
+        {!loading && <ArrowRight className="h-4 w-4" />}
       </button>
     </form>
   );

@@ -23,6 +23,7 @@ export default function Users() {
   });
 
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const [editForm, setEditForm] = useState({
     username: "",
@@ -44,7 +45,7 @@ export default function Users() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
+    setLoading(true);
     try {
       await createUser(form);
 
@@ -60,30 +61,35 @@ export default function Users() {
     } catch (err: any) {
       alert(err.response?.data?.message || err.message);
     }
+    finally {
+  setLoading(false);
+}
   }
+async function handleUpdate() {
+  if (!editingId) return;
 
-  async function handleUpdate() {
-    if (!editingId) return;
+  setLoading(true);
 
-    try {
-      await updateUser(editingId, editForm);
+  try {
+    await updateUser(editingId,editForm);
 
-      alert("User Updated Successfully");
+    alert("User Updated Successfully");
 
-      setEditingId(null);
+    setEditingId(null);
 
-      setEditForm({
-        username: "",
-        role: "ADMIN",
-      });
+    setEditForm({
+      username: "",
+      role: "ADMIN",
+    });
 
-      loadUsers();
-    } catch (err: any) {
-      alert(err.response?.data?.message || err.message);
-    }
+    loadUsers();
+  } catch (err: any) {
+    alert(err.response?.data?.message || err.message);
+  } finally {
+    setLoading(false);
   }
-
-  async function handleDelete(id: string) {
+} 
+ async function handleDelete(id: string) {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this user?",
     );
@@ -153,10 +159,11 @@ export default function Users() {
         </select>
 
         <button
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
           type="submit"
+          disabled={loading}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:opacity-60"
         >
-          Create User
+          {loading ? "Loading..." : "Create User"}
         </button>
       </form>
 
@@ -193,10 +200,11 @@ export default function Users() {
 
           <div className="flex gap-3">
             <button
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded disabled:opacity-60"
               onClick={handleUpdate}
+              disabled={loading}
             >
-              Save
+              {loading ? "Loading..." : "Save"}
             </button>
 
             <button

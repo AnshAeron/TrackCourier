@@ -32,6 +32,7 @@ export default function Bookings() {
     consignment_b: "",
   });
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
     const LIMIT = 50;
 
@@ -106,33 +107,35 @@ export default function Bookings() {
     loadData();
   }, []);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+   e.preventDefault();
 
-    try {
-      if (editingId) {
-        await updateBooking(editingId, form);
-      } else {
-        await createBooking(form);
-      }
+   try {
+     if (editingId) {
+       await updateBooking(editingId, form);
+     } else {
+       await createBooking(form);
+     }
 
-      alert(
-        editingId
-          ? "Booking Updated Successfully"
-          : "Booking Created Successfully",
-      );
+     alert(
+       editingId
+         ? "Booking Updated Successfully"
+         : "Booking Created Successfully",
+     );
 
-      setForm({
-        provider_id: "",
-        consignment_a: "",
-        consignment_b: "",
-      });
+     setForm({
+       provider_id: "",
+       consignment_a: "",
+       consignment_b: "",
+     });
 
-      loadData();
-    } catch (err: any) {
-      alert(err.message);
-    }
-  }
+     loadData();
+   } catch (err: any) {
+  alert(err.message);
+} finally {
+  setLoading(false);
+}
+}
   async function handleDelete(id: string) {
     if (!window.confirm("Delete this booking?")) return;
 
@@ -216,9 +219,14 @@ export default function Bookings() {
 
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          disabled={loading}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:opacity-60"
         >
-          {editingId ? "Update Booking" : "Create Booking"}
+          {loading
+            ? "Loading..."
+            : editingId
+              ? "Update Booking"
+              : "Create Booking"}
         </button>
       </form>
       <div className="border rounded-lg p-4 mb-6 bg-white">
