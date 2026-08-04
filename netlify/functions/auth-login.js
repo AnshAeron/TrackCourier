@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { pool } from "../lib/db.js";
 
 import pool from "../../shared/db.js";
 import { generateToken } from "../../shared/jwt.js";

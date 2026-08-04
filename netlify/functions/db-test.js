@@ -1,13 +1,25 @@
-import pool from "../../shared/db.js";
+import db from "../../shared/db.js";
+import { pool } from "../lib/db.js";
+
+const pool = db.default ?? db;
 
 export async function handler() {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      type: typeof pool,
-      keys: Object.keys(pool || {}),
-      constructor: pool?.constructor?.name,
-      hasQuery: typeof pool?.query,
-    }),
-  };
+  try {
+    const result = await pool.query("SELECT NOW()");
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        success: true,
+        now: result.rows[0].now,
+      }),
+    };
+  } catch (err) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: err.message,
+      }),
+    };
+  }
 }

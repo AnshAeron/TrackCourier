@@ -1,4 +1,5 @@
 import { getUser } from "../../shared/auth.js";
+import { pool } from "../lib/db.js";
 import { success, failure } from "../../shared/response.js";
 
 export async function handler(event) {
