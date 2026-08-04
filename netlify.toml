@@ -106,3 +106,8 @@ from = "/api/track/*"
 to = "/.netlify/functions/tracking"
 status = 200
 force = true
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
