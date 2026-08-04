@@ -10,6 +10,14 @@ import cookieParser from "cookie-parser";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import trackingRoutes from "./routes/tracking.routes.js";
 
+console.log("testRoutes:", typeof testRoutes);
+console.log("authRoutes:", typeof authRoutes);
+console.log("providerRoutes:", typeof providerRoutes);
+console.log("userRoutes:", typeof userRoutes);
+console.log("bookingRoutes:", typeof bookingRoutes);
+console.log("dashboardRoutes:", typeof dashboardRoutes);
+console.log("trackingRoutes:", typeof trackingRoutes);
+
 const app = express();
 
 app.use(
@@ -25,12 +33,12 @@ app.use(cookieParser());
 
 
 app.use("/api", testRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/providers", providerRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/bookings", bookingRoutes);
-app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/track", trackingRoutes);
+// app.use("/api/auth", authRoutes);
+// app.use("/api/providers", providerRoutes);
+// app.use("/api/users", userRoutes);
+// app.use("/api/bookings", bookingRoutes);
+// app.use("/api/dashboard", dashboardRoutes);
+// app.use("/api/track", trackingRoutes);
 
 app.get("/", (req, res) => {
   res.send("TrackMyCourier Backend Running 🚀");

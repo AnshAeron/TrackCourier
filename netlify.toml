@@ -6,7 +6,103 @@
   directory = "netlify/functions"
 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  from = "/api/auth/login"
+  to = "/.netlify/functions/auth-login"
   status = 200
-  force = true 
+  force = true
+
+[[redirects]]
+  from = "/api/auth/me"
+  to = "/.netlify/functions/auth-me"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/providers"
+  to = "/.netlify/functions/providers-get"
+  status = 200
+  force = true
+
+[[redirects]]
+from = "/api/db-test"
+to = "/.netlify/functions/db-test"
+status = 200
+force = true
+
+[[redirects]]
+from = "/api/providers/create"
+to = "/.netlify/functions/providers-create"
+status = 200
+force = true
+
+[[redirects]]
+from = "/api/providers/update"
+to = "/.netlify/functions/providers-update"
+status = 200
+force = true
+
+[[redirects]]
+from = "/api/providers/delete"
+to = "/.netlify/functions/providers-delete"
+status = 200
+force = true
+
+[[redirects]]
+from = "/api/bookings"
+to = "/.netlify/functions/bookings-get"
+status = 200
+force = true
+
+[[redirects]]
+from = "/api/bookings/create"
+to = "/.netlify/functions/bookings-create"
+status = 200
+force = true
+
+[[redirects]]
+from = "/api/bookings/update"
+to = "/.netlify/functions/bookings-update"
+status = 200
+force = true
+
+[[redirects]]
+from = "/api/bookings/delete"
+to = "/.netlify/functions/bookings-delete"
+status = 200
+force = true
+
+[[redirects]]
+from="/api/users"
+to="/.netlify/functions/users-get"
+status=200
+force=true
+
+[[redirects]]
+from="/api/users/create"
+to="/.netlify/functions/users-create"
+status=200
+force=true
+
+[[redirects]]
+from="/api/users/update"
+to="/.netlify/functions/users-update"
+status=200
+force=true
+
+[[redirects]]
+from="/api/users/delete"
+to="/.netlify/functions/users-delete"
+status=200
+force=true
+
+[[redirects]]
+from="/api/dashboard"
+to="/.netlify/functions/dashboard-stats"
+status=200
+force=true
+
+[[redirects]]
+from = "/api/track/*"
+to = "/.netlify/functions/tracking"
+status = 200
+force = true
