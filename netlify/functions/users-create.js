@@ -1,5 +1,5 @@
 import { pool } from "../lib/db.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { requireAdmin } from "../../shared/auth.js";
 import { success, failure } from "../../shared/response.js";
 
