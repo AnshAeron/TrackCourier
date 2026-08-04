@@ -1,7 +1,4 @@
-import db from "../../shared/db.js";
 import { pool } from "../lib/db.js";
-
-const pool = db.default ?? db;
 
 export async function handler() {
   try {
@@ -18,6 +15,7 @@ export async function handler() {
     return {
       statusCode: 500,
       body: JSON.stringify({
+        success: false,
         error: err.message,
       }),
     };

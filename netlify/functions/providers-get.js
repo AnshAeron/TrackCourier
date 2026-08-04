@@ -1,7 +1,7 @@
-import pool from "../../shared/db.js";
+import { pool } from "../lib/db.js";
 import { requireStaffOrAdmin } from "../../shared/auth.js";
 import { success, failure } from "../../shared/response.js";
-import { pool } from "../lib/db.js";
+
 
 export async function handler(event) {
   try {

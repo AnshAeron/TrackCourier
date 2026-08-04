@@ -1,6 +1,6 @@
 import { getTrackingDetails } from "../../server/services/tracking.service.js";
 import { success, failure } from "../../shared/response.js";
-import { pool } from "../lib/db.js";
+
 
 export async function handler(event) {
   try {
