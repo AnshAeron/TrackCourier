@@ -1,4 +1,4 @@
-import pool from "../db/database.js";
+import { pool } from "../../netlify/lib/db.js";
 import { trackSkyNet } from "./providers/skynet.service.js";
 import { trackABCStar } from "./providers/abcstar.service.js";
 import { normalizeSkyNet } from "./normalizers/skynet.normalizer.js";
