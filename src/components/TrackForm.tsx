@@ -1,6 +1,7 @@
 import { type FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ScanLine, ArrowRight } from "lucide-react";
+
 
 type Props = {
   compact?: boolean;
@@ -17,12 +18,16 @@ export default function TrackForm({
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (externalValue !== undefined) {
       setValue(externalValue);
     }
   }, [externalValue]);
+  useEffect(() => {
+    setLoading(false);
+  }, [location.pathname, location.search]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
@@ -33,12 +38,10 @@ export default function TrackForm({
     e.preventDefault();
 
     const trackingId = value.trim();
-    setLoading(true);
 
-    if (!trackingId) {
-      setLoading(false);
-      return;
-    }
+    if (!trackingId) return;
+
+    setLoading(true);
 
     const url = `/track?id=${encodeURIComponent(trackingId)}`;
 
