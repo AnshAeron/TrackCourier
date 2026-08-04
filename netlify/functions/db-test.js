@@ -15,10 +15,10 @@ export async function handler() {
     return {
       statusCode: 500,
       body: JSON.stringify({
+        success: false,
         message: err.message,
         code: err.code,
         name: err.name,
-        stack: err.stack,
       }),
     };
   }
