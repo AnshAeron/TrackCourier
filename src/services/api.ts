@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://trackcourier-jut7.onrender.com/api",
+  baseURL: import.meta.env.PROD ? "/api" : "http://localhost:5001/api",
   headers: {
     "Content-Type": "application/json",
   },
