@@ -33,17 +33,22 @@ export async function getBookings(
   return data;
 }
 export async function createBooking(payload: BookingPayload) {
-  const { data } = await api.post("/bookings", payload);
+  const { data } = await api.post("/bookings/create", payload);
   return data;
 }
 
 export async function updateBooking(id: string, payload: BookingPayload) {
-  const { data } = await api.put(`/bookings/${id}`, payload);
+  const { data } = await api.put("/bookings/update", {
+    id,
+    ...payload,
+  });
   return data;
 }
 
 export async function deleteBooking(id: string) {
-  const { data } = await api.delete(`/bookings/${id}`);
+  const { data } = await api.delete("/bookings/delete", {
+    data: { id },
+  });
   return data;
 }
 

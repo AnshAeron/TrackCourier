@@ -7,7 +7,7 @@ export interface ProviderData {
 }
 
 export async function createProvider(data: ProviderData) {
-  const response = await api.post("/providers", data);
+  const response = await api.post("/providers/create", data);
 
   console.log("Create Provider:", response.data);
 
@@ -23,13 +23,18 @@ export async function getProviders() {
 }
 
 export async function updateProvider(id: string, data: ProviderData) {
-  const response = await api.put(`/providers/${id}`, data);
+  const response = await api.post("/providers/update", {
+    id,
+    ...data,
+  });
 
   return response.data;
 }
 
 export async function deleteProvider(id: string) {
-  const response = await api.delete(`/providers/${id}`);
+  const response = await api.delete("/providers/delete", {
+    data: { id },
+  });
 
   return response.data;
 }
