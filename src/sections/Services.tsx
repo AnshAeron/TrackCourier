@@ -59,12 +59,12 @@ export default function Services() {
               <h3 className="mt-6 text-xl font-bold text-slate-900">{s.title}</h3>
               <div className={`mx-auto mt-3 h-0.5 w-10 ${s.bar}`} />
               <p className="mt-5 text-slate-500">{s.desc}</p>
-              /* <button className={`mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide ${s.accent}`}>
+              {/* <button className={`mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide ${s.accent}`}>
                 Read More
                 <span className={`flex h-7 w-7 items-center justify-center rounded-full border ${s.accent} border-current`}>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </span>
-              </button> */
+              </button> */}
             </div>
           ))}
         </div>
