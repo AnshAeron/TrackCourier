@@ -2,31 +2,31 @@ import { MapPin, Building2, Clock } from "lucide-react";
 
 const branches = [
   {
-    name: "Chandigarh Branch",
+    name: "Kurali Branch",
     color: "text-brand-blue",
     pin: "text-brand-blue",
     hours: "bg-blue-50 text-brand-blue",
-    address: ["SCO 85-86, Sector 17C,", "Chandigarh – 160017, India"],
+    address: ["Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"],
   },
   {
     name: "Ludhiana Branch",
     color: "text-emerald-600",
     pin: "text-emerald-600",
     hours: "bg-emerald-50 text-emerald-600",
-    address: ["Shop No. 12, Feroz Gandhi Market,", "Ludhiana – 141001, Punjab"],
+    address: ["Opening Soon"],
   },
   {
-    name: "Delhi Branch",
+    name: "Kharar Branch",
     color: "text-amber-500",
     pin: "text-amber-500",
     hours: "bg-amber-50 text-amber-600",
-    address: ["B-110, 1st Floor, Lajpat Nagar II,", "New Delhi – 110024"],
+    address: ["Opening Soon"],
   },
 ];
 
 export default function LocateUs() {
   const mapSrc =
-    "https://www.google.com/maps?q=Near+Bus+Stand,+Rupnagar,+Punjab+140001,+India&output=embed";
+    "https://www.google.com/maps?q=Anuj Communication, 2837, Mata Rani Rd, Gugga Mari Mohalla, Rupnagar, Punjab 140001&output=embed";
 
   return (
     <section id="locate" className="bg-gradient-to-b from-white to-slate-50 py-16 sm:py-20">
@@ -57,10 +57,10 @@ export default function LocateUs() {
                   <p className="text-sm font-semibold uppercase tracking-wide text-blue-200">
                     Main Office
                   </p>
-                  <p className="text-xl font-bold">Track My Courier</p>
+                  <p className="text-xl font-bold">Anuj Communication</p>
                   <p className="mt-2 flex items-start gap-1 text-blue-100">
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-                    Near Bus Stand, Rupnagar, Punjab – 140001, India
+                    2837, Mata Rani Rd, Gugga Mari Mohalla, Rupnagar, Punjab-140001
                   </p>
                 </div>
               </div>
@@ -71,7 +71,7 @@ export default function LocateUs() {
                 </div>
                 <div>
                   <p className="font-semibold">Working Hours</p>
-                  <p className="text-blue-100">Mon – Sat: 9:00 AM – 6:00 PM</p>
+                  <p className="text-blue-100">Mon – Sat: 9:00 AM – 7:00 PM</p>
                   <p className="text-blue-100">Sunday: <span className="font-bold text-white">Closed</span></p>
                 </div>
               </div>
@@ -113,7 +113,7 @@ export default function LocateUs() {
                 </p>
                 <div className={`mt-3 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold ${b.hours}`}>
                   <Clock className="h-3.5 w-3.5" />
-                  Mon – Sat: 9:30 AM – 6:30 PM
+                  Mon – Sat: 9:00 AM – 7:00 PM
                 </div>
               </div>
             ))}
