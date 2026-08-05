@@ -1,4 +1,4 @@
-import { Users, ShieldCheck, Truck, Globe, ArrowRight, MapPin } from "lucide-react";
+import { Users, ShieldCheck, Truck, Globe, MapPin } from "lucide-react";
 import warehouseImg from "../assets/warehouse.png";
 
 const features = [
