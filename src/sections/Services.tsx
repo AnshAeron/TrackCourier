@@ -1,4 +1,4 @@
-import { Package, Truck, Plane, ArrowRight } from "lucide-react";
+import { Package, Truck, Plane } from "lucide-react";
 
 const services = [
   {
