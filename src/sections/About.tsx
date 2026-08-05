@@ -66,12 +66,12 @@ export default function About() {
               ))}
             </div>
 
-            <button className="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-blue px-6 py-3 font-semibold text-white shadow-soft transition hover:bg-blue-700">
+            /* <button className="mt-8 inline-flex items-center gap-2 rounded-lg bg-brand-blue px-6 py-3 font-semibold text-white shadow-soft transition hover:bg-blue-700">
               Learn More About Us
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20">
                 <ArrowRight className="h-3.5 w-3.5" />
               </span>
-            </button>
+            </button> */
           </div>
 
           <div className="relative">
@@ -89,7 +89,7 @@ export default function About() {
               </div>
               <div className="mt-1 text-xl font-extrabold text-brand-blue">Rupnagar, Punjab</div>
               <div className="mt-2 h-0.5 w-10 bg-brand-blue" />
-              <div className="mt-2 font-bold text-slate-900">Since 2020</div>
+              <div className="mt-2 font-bold text-slate-900">Since 2008</div>
             </div>
           </div>
         </div>
