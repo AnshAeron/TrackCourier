@@ -7,9 +7,9 @@ export default function Footer() {
           <span className="hidden sm:inline text-slate-300">|</span>
           <span>Rupnagar, Punjab, India</span>
           <span className="hidden sm:inline text-slate-300">|</span>
-          <a href="#" className="hover:text-brand-blue" onClick="return false;">Terms &amp; Conditions</a>
+          <a href="#" className="hover:text-brand-blue" onClick={(e) => e.preventDefault()}>Terms &amp; Conditions</a>
           <span className="hidden sm:inline text-slate-300">|</span>
-          <a href="#" className="hover:text-brand-blue" onClick="return false;">Privacy Policy</a>
+          <a href="#" className="hover:text-brand-blue" onClick={(e) => e.preventDefault()}>Privacy Policy</a>
         </div>
       </div>
     </footer>
