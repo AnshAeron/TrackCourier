@@ -23,7 +23,7 @@ export async function getProviders() {
 }
 
 export async function updateProvider(id: string, data: ProviderData) {
-  const response = await api.post("/providers/update", {
+  const response = await api.put("/providers/update", {
     id,
     ...data,
   });

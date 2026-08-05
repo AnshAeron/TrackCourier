@@ -23,7 +23,7 @@
         "npm:cookie-parser@^1.4.7",
         "npm:cors@^2.8.6",
         "npm:dotenv@^17.4.2",
-        "npm:express@^5.2.1",
+        "npm:express@^4.21.2",
         "npm:jsonwebtoken@^9.0.3",
         "npm:lucide-react@^1.25.0",
         "npm:nodemon@^3.1.14",

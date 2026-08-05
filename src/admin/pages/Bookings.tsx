@@ -48,6 +48,8 @@ export default function Bookings() {
       to: "",
     });
 
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+
   async function loadData() {
     try {
       const providerRes = await getProviders();
@@ -345,12 +347,14 @@ export default function Bookings() {
                     Edit
                   </button>
 
-                  <button
-                    onClick={() => handleDelete(booking.id)}
-                    className="ml-4 text-red-600 hover:underline"
-                  >
-                    Delete
-                  </button>
+                  {user.role === "ADMIN" && (
+                    <button
+                      onClick={() => handleDelete(booking.id)}
+                      className="ml-4 text-red-600 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  )}
                 </td>
               </tr>
             ))

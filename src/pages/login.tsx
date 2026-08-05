@@ -58,7 +58,8 @@ export default function Login() {
         <input
           type="text"
           placeholder="Username"
-          className="mb-4 w-full rounded border p-3 outline-none focus:border-blue-500"
+          autoComplete="off"
+          className="mb-4 w-full rounded-lg border border-slate-300 p-3"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -67,12 +68,12 @@ export default function Login() {
         <input
           type="password"
           placeholder="Password"
-          className="mb-6 w-full rounded border p-3 outline-none focus:border-blue-500"
+          autoComplete="new-password"
+          className="mb-6 w-full rounded-lg border border-slate-300 p-3"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-
         <button
           type="submit"
           disabled={loading}

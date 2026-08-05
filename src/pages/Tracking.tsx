@@ -47,6 +47,8 @@ export default function Tracking() {
   const [shipment, setShipment] = useState<any>(null);
   const [copied, setCopied] = useState(false);
 
+  const [error, setError] = useState("");
+
   const redirected = useRef(false);
   useEffect(() => {
     if (!id) return;
@@ -55,13 +57,13 @@ export default function Tracking() {
     const fetchShipment = async () => {
       try {
         const data = await getShipment(id);
-
+          setError("");
         console.log("Shipment Response:", data);
 
         // Invalid tracking number
         if (!data || !data.booking) {
-          alert("❌ Invalid Tracking / AWB Number");
           setShipment(null);
+          setError("Invalid Tracking / AWB Number");
           return;
         }
 
@@ -90,9 +92,8 @@ export default function Tracking() {
       } catch (err) {
         console.error("API Error:", err);
 
-        alert("❌ Invalid Tracking / AWB Number");
-
         setShipment(null);
+        setError("Invalid Tracking / AWB Number");
       }
     };
     fetchShipment();
@@ -129,14 +130,27 @@ export default function Tracking() {
             </div>
           </div>
           <div className="md:w-[55%]">
-            <TrackForm
-              compact
-              value={trackingNumber}
-              onChange={setTrackingNumber}
-            />
+            <div className="md:w-[55%]">
+              <TrackForm
+                compact
+                value={trackingNumber}
+                onChange={setTrackingNumber}
+              />
+
+              {error && (
+                <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-600">
+                  {error}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      {error && (
+        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-600">
+          {error}
+        </div>
+      )}
       {hasShipment && !shipment.redirectOnly && (
         <>
           {/* Summary row */}
