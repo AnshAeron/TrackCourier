@@ -126,11 +126,11 @@ export default function Tracking() {
             </div>
             <div>
               <h2 className="font-bold text-slate-900">Track Courier</h2>
-              <p className="text-sm text-slate-500">Enter your tracking id</p>
+              <p className="text-sm text-slate-500">Enter your Airway Bill Number</p>
             </div>
           </div>
           <div className="md:w-[55%]">
-            <div className="md:w-[55%]">
+            <div>
               <TrackForm
                 compact
                 value={trackingNumber}
@@ -196,7 +196,7 @@ export default function Tracking() {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm text-slate-400">AWB Number</div>
+                <div className="text-sm text-slate-400">Partner Tracking Id</div>
                 <div className="inline-flex items-center gap-2">
                   <a
                     href={shipment.trackingUrl}
@@ -285,14 +285,14 @@ export default function Tracking() {
                 <span className="text-slate-500">
                   🏳️ Origin:{" "}
                   <span className="font-semibold text-slate-800">
-                    🇮🇳 {shipment.originCountry}
+                   {shipment.originCountry}
                   </span>
                 </span>
                 <span className="hidden sm:inline text-slate-300">|</span>
                 <span className="text-slate-500">
                   🏳️ Destination:{" "}
                   <span className="font-semibold text-slate-800">
-                    🇳🇿 {shipment.destinationCountry}
+                   {shipment.destinationCountry}
                   </span>
                 </span>
               </div>
@@ -332,7 +332,7 @@ export default function Tracking() {
               <div className="space-y-4">
                 <Detail
                   icon={Barcode}
-                  label="Tracking ID"
+                  label="AWB Number"
                   value={shipment.consignmentA || shipment.trackingId}
                   color="text-brand-blue"
                 />
