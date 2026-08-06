@@ -7,15 +7,16 @@ type Props = {
   compact?: boolean;
   value?: string;
   onChange?: (value: string) => void;
+  loading?: boolean;
 };
 
 export default function TrackForm({
   compact = false,
   value: externalValue,
   onChange,
+  loading = false,
 }: Props) {
   const [value, setValue] = useState(externalValue || "");
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,10 +26,7 @@ export default function TrackForm({
       setValue(externalValue);
     }
   }, [externalValue]);
-  useEffect(() => {
-    setLoading(false);
-  }, [location.pathname, location.search]);
-
+  
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
     onChange?.(e.target.value);
@@ -40,8 +38,6 @@ export default function TrackForm({
     const trackingId = value.trim();
 
     if (!trackingId) return;
-
-    setLoading(true);
 
     const url = `/track?id=${encodeURIComponent(trackingId)}`;
 
