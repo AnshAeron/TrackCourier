@@ -1,5 +1,5 @@
 import { type FormEvent, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ScanLine, ArrowRight } from "lucide-react";
 
 
@@ -19,7 +19,6 @@ export default function TrackForm({
   const [value, setValue] = useState(externalValue || "");
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     if (externalValue !== undefined) {
