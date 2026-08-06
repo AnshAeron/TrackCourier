@@ -51,10 +51,10 @@ export default function LocateUs() {
                   </p>
 
                   <a
-                    href="https://maps.google.com/?q=2837,+Mata+Rani+Road,+Gugga+Mari+Mohalla,+Rupnagar,+Punjab+140001"
+                    href="https://maps.google.com/?q=Anuj Communication, 2837,+Mata+Rani+Road,+Gugga+Mari+Mohalla,+Rupnagar,+Punjab+140001"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-200 hover:text-white hover:underline transition-colors"
+                    className="mt-2 flex items-center gap-1 text-sm font-medium text-blue-200 hover:text-white hover:underline transition-colors"
                   >
                     View on Map
                     <ExternalLink className="h-3.5 w-3.5" />
@@ -63,7 +63,7 @@ export default function LocateUs() {
                     href="https://wa.me/919216401935?text=Hello,%20I%20have%20an%20enquiry"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-green-300 hover:text-green-200 hover:underline transition-colors"
+                    className="mt-2 flex items-center gap-1 text-sm font-medium text-green-300 hover:text-green-200 hover:underline transition-colors"
                   >
                     <FaWhatsapp className="h-4 w-4 text-green-400" />
                     +91 92164 01935
@@ -122,7 +122,7 @@ export default function LocateUs() {
                     href="https://maps.google.com/?q=TRACKON+COURIER Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-200 hover:text-white hover:underline transition-colors"
+                    className="mt-2 flex items-center gap-1 text-sm font-medium text-brand-blue hover:text-white hover:underline transition-colors"
                   >
                     View on Map
                     <ExternalLink className="h-3.5 w-3.5" />
@@ -131,9 +131,9 @@ export default function LocateUs() {
                     href="https://wa.me/919023532827?text=Hello,%20I%20have%20an%20enquiry"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-green-300 hover:text-green-200 hover:underline transition-colors"
+                    className="mt-2 flex items-center gap-1 text-sm font-medium text-emerald-600 hover:text-green-200 hover:underline transition-colors"
                   >
-                    <FaWhatsapp className="h-4 w-4 text-green-400" />
+                    <FaWhatsapp className="h-4 w-4 text-emerald-600" />
                     +91 90235 32827
                   </a>
 
