@@ -7,7 +7,7 @@ const carrierLogos: Record<string, string> = {
   ABCStar: "/logos/abcstar.png",
 };
 
-const [loading, setLoading] = useState(false);
+
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -36,6 +36,9 @@ import { getShipment } from "../services/tracking.service";
 import { useRef } from "react";
 
 export default function Tracking() {
+
+  const [loading, setLoading] = useState(false);
+  
   const [params] = useSearchParams();
   const id = params.get("id") || "";
   const [trackingNumber, setTrackingNumber] = useState(id);
