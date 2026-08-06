@@ -36,7 +36,7 @@ export default function ProtectedRoute({
   }
 
   if (!authorized) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/admin89104/login" replace />;
   }
 
   return children;

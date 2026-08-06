@@ -10,7 +10,7 @@ export default function Topbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
 
-    navigate("/admin/login", { replace: true });
+    navigate("/admin89104/login", { replace: true });
   };
 
   return (

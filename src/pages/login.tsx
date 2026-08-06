@@ -15,7 +15,7 @@ export default function Login() {
     const token = localStorage.getItem("token");
 
     if (token) {
-      navigate("/admin/dashboard", { replace: true });
+      navigate("/admin89104/dashboard", { replace: true });
     }
   }, [navigate]);
 
@@ -31,7 +31,7 @@ export default function Login() {
       localStorage.setItem("token", res.token);
       localStorage.setItem("user", JSON.stringify(res.user));
 
-      navigate("/admin/dashboard", { replace: true });
+      navigate("/admin89104/dashboard", { replace: true });
     } catch (err: any) {
       setError(err.response?.data?.message || "Invalid username or password");
 

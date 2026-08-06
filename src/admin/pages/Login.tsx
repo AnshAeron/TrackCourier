@@ -14,7 +14,7 @@ export default function Login() {
     const token = localStorage.getItem("token");
 
     if (token) {
-      window.location.href = "/admin/bookings";
+      window.location.href = "/admin89104/bookings";
     }
   }, [navigate]);
 
@@ -30,7 +30,7 @@ export default function Login() {
       localStorage.setItem("token", res.token);
       localStorage.setItem("user", JSON.stringify(res.user));
 
-      navigate("/admin/bookings", { replace: true });
+      navigate("/admin89104/bookings", { replace: true });
     } catch (err: any) {
       setError(err.response?.data?.message ?? "Invalid username or password");
       setPassword("");

@@ -7,12 +7,12 @@ export default function Sidebar() {
   const role = user?.role || "STAFF";
 
   const links = [
-    { name: "Bookings", path: "/admin/bookings" },
+    { name: "Bookings", path: "/admin89104/bookings" },
 
     ...(role === "ADMIN"
       ? [
-          { name: "Providers", path: "/admin/providers" },
-          { name: "Users", path: "/admin/users" },
+          { name: "Providers", path: "/admin89104/providers" },
+          { name: "Users", path: "/admin89104/users" },
         ]
       : []),
   ];
@@ -32,7 +32,7 @@ export default function Sidebar() {
           <NavLink
             key={link.path}
             to={link.path}
-            end={link.path === "/admin"}
+            end={link.path === "/admin89104"}
             className={({ isActive }) =>
               `px-6 py-3 transition ${
                 isActive
