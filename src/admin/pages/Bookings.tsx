@@ -340,13 +340,14 @@ export default function Bookings() {
                   {new Date(booking.created_at).toLocaleString()}
                 </td>
                 <td className="border p-3">
+                {user.role === "ADMIN" && (
                   <button
                     onClick={() => handleEdit(booking)}
                     className="text-blue-600 hover:underline"
                   >
                     Edit
                   </button>
-
+                   )}
                   {user.role === "ADMIN" && (
                     <button
                       onClick={() => handleDelete(booking.id)}
