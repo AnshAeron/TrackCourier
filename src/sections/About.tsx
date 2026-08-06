@@ -38,12 +38,12 @@ export default function About() {
             </span>
             <h2 className="mt-6 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl">
               Leading Courier Service Provider in{" "}
-              <span className="text-brand-blue">Rupnagar, Punjab</span>
+              <span className="text-brand-blue">Rupnagar & Kurali, Punjab</span>
             </h2>
             <div className="mt-4 h-1 w-16 rounded bg-brand-blue" />
             <p className="mt-6 text-slate-500">
               We are a trusted name in the courier and logistics industry, proudly
-              serving customers in Rupnagar and beyond. Our commitment is to
+              serving customers in Rupnagar, Kurali and beyond. Our commitment is to
               deliver every shipment with speed, safety and reliability.
             </p>
             <p className="mt-4 text-slate-500">
@@ -87,7 +87,7 @@ export default function About() {
                 <MapPin className="h-5 w-5 text-brand-blue" />
                 <span className="text-sm">Proudly Serving</span>
               </div>
-              <div className="mt-1 text-xl font-extrabold text-brand-blue">Rupnagar, Punjab</div>
+              <div className="mt-1 text-xl font-extrabold text-brand-blue">Rupnagar & Kurali, Punjab</div>
               <div className="mt-2 h-0.5 w-10 bg-brand-blue" />
               <div className="mt-2 font-bold text-slate-900">Since 2008</div>
             </div>
@@ -97,7 +97,7 @@ export default function About() {
         <div className="mt-20 rounded-2xl bg-white p-8 shadow-card">
           <div className="mb-6 flex items-center justify-center gap-4">
             <span className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">
-              Our Global Partners
+              Our Service Providers
             </span>
           </div>
           <div className="grid grid-cols-2 items-center gap-6 sm:grid-cols-4 sm:divide-x sm:divide-slate-100">

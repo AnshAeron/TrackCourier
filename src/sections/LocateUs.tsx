@@ -1,26 +1,13 @@
-import { MapPin, Building2, Clock } from "lucide-react";
+import { MapPin, Building2, Clock, ExternalLink } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const branches = [
   {
-    name: "Kurali Branch",
+    name: "Kurali Office",
     color: "text-brand-blue",
     pin: "text-brand-blue",
     hours: "bg-blue-50 text-brand-blue",
     address: ["Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"],
-  },
-  {
-    name: "Ludhiana Branch",
-    color: "text-emerald-600",
-    pin: "text-emerald-600",
-    hours: "bg-emerald-50 text-emerald-600",
-    address: ["Opening Soon"],
-  },
-  {
-    name: "Kharar Branch",
-    color: "text-amber-500",
-    pin: "text-amber-500",
-    hours: "bg-amber-50 text-amber-600",
-    address: ["Opening Soon"],
   },
 ];
 
@@ -43,7 +30,7 @@ export default function LocateUs() {
             </h2>
             <div className="mt-4 h-1 w-16 rounded bg-brand-blue" />
             <p className="mt-6 max-w-md text-slate-500">
-              Track My Courier is proudly based in Rupnagar, Punjab and serves
+              Track My Courier is proudly based in Rupnagar & Kurali, Punjab and serves
               customers across India &amp; worldwide with fast, secure and reliable
               courier solutions.
             </p>
@@ -55,13 +42,32 @@ export default function LocateUs() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-wide text-blue-200">
-                    Main Office
+                    Our Office
                   </p>
-                  <p className="text-xl font-bold">Anuj Communication</p>
+                  <p className="text-xl font-bold"></p>
                   <p className="mt-2 flex items-start gap-1 text-blue-100">
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
                     2837, Mata Rani Rd, Gugga Mari Mohalla, Rupnagar, Punjab-140001
                   </p>
+
+                  <a
+                    href="https://maps.google.com/?q=2837,+Mata+Rani+Road,+Gugga+Mari+Mohalla,+Rupnagar,+Punjab+140001"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-200 hover:text-white hover:underline transition-colors"
+                  >
+                    View on Map
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                  <a
+                    href="https://wa.me/919216401935?text=Hello,%20I%20have%20an%20enquiry"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-green-300 hover:text-green-200 hover:underline transition-colors"
+                  >
+                    <FaWhatsapp className="h-4 w-4 text-green-400" />
+                    +91 92164 01935
+                  </a>
                 </div>
               </div>
               <div className="mx-6 border-t border-white/10" />
@@ -111,6 +117,26 @@ export default function LocateUs() {
                   <br />
                   {b.address[1]}
                 </p>
+
+                <a
+                    href="https://maps.google.com/?q=TRACKON+COURIER Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-blue-200 hover:text-white hover:underline transition-colors"
+                  >
+                    View on Map
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                  <a
+                    href="https://wa.me/919023532827?text=Hello,%20I%20have%20an%20enquiry"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-green-300 hover:text-green-200 hover:underline transition-colors"
+                  >
+                    <FaWhatsapp className="h-4 w-4 text-green-400" />
+                    +91 90235 32827
+                  </a>
+
                 <div className={`mt-3 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold ${b.hours}`}>
                   <Clock className="h-3.5 w-3.5" />
                   Mon – Sat: 9:00 AM – 7:00 PM
