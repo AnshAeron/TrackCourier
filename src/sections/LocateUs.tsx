@@ -131,7 +131,7 @@ export default function LocateUs() {
                     href="https://wa.me/919023532827?text=Hello,%20I%20have%20an%20enquiry"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 flex items-center gap-1 text-sm font-medium text-emerald-600 hover:text-green-200 hover:underline transition-colors"
+                    className="mt-2 flex items-center gap-1 text-sm font-medium text-emerald-600 hover:text-emerald-600 hover:underline transition-colors"
                   >
                     <FaWhatsapp className="h-4 w-4 text-emerald-600" />
                     +91 90235 32827
