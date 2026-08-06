@@ -7,6 +7,8 @@ const carrierLogos: Record<string, string> = {
   ABCStar: "/logos/abcstar.png",
 };
 
+const [loading, setLoading] = useState(false);
+
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -55,6 +57,8 @@ export default function Tracking() {
 
      redirected.current = false;
     const fetchShipment = async () => {
+      setLoading(true);
+      
       try {
         const data = await getShipment(id);
           setError("");
@@ -94,6 +98,8 @@ export default function Tracking() {
 
         setShipment(null);
         setError("Invalid Tracking / AWB Number");
+      } finally {
+        setLoading(false);
       }
     };
     fetchShipment();
@@ -135,6 +141,7 @@ export default function Tracking() {
                 compact
                 value={trackingNumber}
                 onChange={setTrackingNumber}
+                loading={loading}
               />
 
               {error && (
