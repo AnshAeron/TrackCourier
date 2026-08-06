@@ -197,9 +197,6 @@ export default function Tracking() {
                   className="h-10 w-auto object-contain"
                 />
                 <div>
-                  <div className="font-bold text-slate-900">
-                    {shipment.carrier}
-                  </div>
                   <div className="text-sm text-slate-400">
                     {shipment.service}
                   </div>
