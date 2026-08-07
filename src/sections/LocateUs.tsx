@@ -47,6 +47,7 @@ export default function LocateUs() {
                   <p className="text-xl font-bold"></p>
                   <p className="mt-2 flex items-start gap-1 text-blue-100">
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                    Anuj Communication <br />
                     2837, Mata Rani Rd, Gugga Mari Mohalla, Rupnagar, Punjab-140001
                   </p>
 
