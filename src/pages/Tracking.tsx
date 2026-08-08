@@ -23,11 +23,9 @@ import {
   ExternalLink,
   Phone,
   Barcode,
-  CreditCard,
   ListChecks,
   Calendar,
   Boxes,
-  Coins,
 } from "lucide-react";
 import type { ReactNode } from "react";
 import TrackForm from "../components/TrackForm";
