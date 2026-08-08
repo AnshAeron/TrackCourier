@@ -1,8 +1,6 @@
 import { pool } from "../../netlify/lib/db.js";
 import { trackSkyNet } from "./providers/skynet.service.js";
 import { trackABCStar } from "./providers/abcstar.service.js";
-import { normalizeSkyNet } from "./normalizers/skynet.normalizer.js";
-import { normalizeABCStar } from "./normalizers/abcstar.normalizer.js";
 
 export const getTrackingDetails = async (consignmentA) => {
   console.log("========================================");
@@ -14,7 +12,7 @@ export const getTrackingDetails = async (consignmentA) => {
       b.id,
       b.consignment_a,
       b.consignment_b,
-      
+
       b.sender_name,
       b.sender_phone,
       b.recipient_name,
@@ -36,6 +34,7 @@ export const getTrackingDetails = async (consignmentA) => {
     `,
     [consignmentA.trim()],
   );
+
   console.log("TRACKING INPUT:", JSON.stringify(consignmentA));
   console.log("DB ROWS:", result.rows);
   console.log("DB ROW COUNT:", result.rows.length);
@@ -46,118 +45,111 @@ export const getTrackingDetails = async (consignmentA) => {
   }
 
   const booking = result.rows[0];
+  const provider = booking.provider_name.trim();
 
   let shipment;
+  let apiFailed = false;
 
-  switch (booking.provider_name.trim()) {
-    case "SkyNet":
-      try {
+  /*
+   * =========================================================
+   * 1. PROVIDER API FIRST
+   * =========================================================
+   */
+
+  try {
+    switch (provider) {
+      case "SkyNet":
         shipment = await trackSkyNet(
           booking.consignment_b,
           booking.tracking_base_url,
         );
+        break;
 
-        // Save latest API response
-        await pool.query(
-          `
-          UPDATE bookings
-          SET provider_last_response = $1
-          WHERE id = $2
-          `,
-          [shipment, booking.id],
-        );
-      } catch (err) {
-        console.log("⚠ SkyNet API failed.");
-
-        if (booking.provider_last_response) {
-          console.log("Using cached response...");
-          shipment = booking.provider_last_response;
-        } else {
-          shipment = {
-            trackingId: booking.consignment_b,
-            trackingUrl:
-              booking.tracking_base_url?.replace(
-                "{}",
-                encodeURIComponent(booking.consignment_b),
-              ) || null,
-            carrier: booking.provider_name.trim(),
-            redirectOnly: true,
-          };
-        }
-      }
-      break;
-
-    case "ABCStar":
-      try {
+      case "ABCStar":
         shipment = await trackABCStar(
           booking.consignment_b,
           booking.tracking_base_url,
         );
+        break;
 
-        await pool.query(
-          `
-          UPDATE bookings
-          SET provider_last_response = $1
-          WHERE id = $2
-          `,
-          [shipment, booking.id],
-        );
-      } catch (err) {
-        console.log("⚠ ABCStar API failed.");
+      default: {
+        const baseUrl = booking.tracking_base_url?.trim();
+        const trackingNo = String(booking.consignment_b || "").trim();
 
-        if (booking.provider_last_response) {
-          console.log("Using cached response...");
-          shipment = booking.provider_last_response;
-        } else {
+        if (baseUrl && baseUrl.toUpperCase() !== "NA") {
           shipment = {
-            trackingId: booking.consignment_b,
-            trackingUrl:
-              booking.tracking_base_url &&
-              booking.tracking_base_url.trim().toUpperCase() !== "NA"
-                ? booking.tracking_base_url.replace(
-                    "{}",
-                    encodeURIComponent(booking.consignment_b),
-                  )
-                : null,
-            carrier: booking.provider_name.trim(),
+            trackingId: trackingNo,
+            trackingUrl: baseUrl.replace("{}", encodeURIComponent(trackingNo)),
+            carrier: provider,
             redirectOnly: true,
           };
         }
+
+        break;
       }
-      break;
+    }
+  } catch (err) {
+    console.log(`⚠ ${provider} API failed.`);
+    console.error(err);
 
-    default: {
-      const baseUrl = booking.tracking_base_url?.trim();
-      const trackingNo = String(booking.consignment_b).trim();
+    apiFailed = true;
+  }
 
-      console.log("Base URL:", booking.tracking_base_url);
-      console.log("Consignment B:", booking.consignment_b);
+  /*
+   * =========================================================
+   * 2. API SUCCESS → SAVE FULL NORMALIZED RESPONSE
+   * =========================================================
+   */
 
-      const finalUrl = booking.tracking_base_url.replace(
-        "{}",
-        encodeURIComponent(String(booking.consignment_b).trim()),
-      );
+  if (shipment && !apiFailed) {
+    console.log("✅ Fresh API tracking response received.");
 
-      console.log("FINAL URL:", finalUrl);
+    await pool.query(
+      `
+      UPDATE bookings
+      SET provider_last_response = $1
+      WHERE id = $2
+      `,
+      [shipment, booking.id],
+    );
+  }
 
-      shipment = {
-        trackingId: booking.consignment_b,
-        trackingUrl: finalUrl,
-        carrier: booking.provider_name.trim(),
-        redirectOnly: true,
-      };
+  /*
+   * =========================================================
+   * 3. API FAILED → USE FULL DB CACHED RESPONSE
+   * =========================================================
+   */
 
-      break;
+  if (apiFailed) {
+    if (booking.provider_last_response) {
+      console.log("♻ Using cached tracking response from DB...");
+
+      shipment = booking.provider_last_response;
+    } else {
+      console.log("⚠ No cached tracking response available.");
+
+      return null;
     }
   }
+
+  /*
+   * =========================================================
+   * 4. NO SHIPMENT
+   * =========================================================
+   */
 
   if (!shipment) {
     return null;
   }
 
+  /*
+   * =========================================================
+   * 5. ALWAYS ADD DATABASE BOOKING INFORMATION
+   * =========================================================
+   */
+
   shipment.consignmentA = booking.consignment_a;
 
-  // Database booking details
   shipment.sender = {
     name: booking.sender_name || "",
     phone: booking.sender_phone || "",
