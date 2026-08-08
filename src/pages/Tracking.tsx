@@ -7,8 +7,6 @@ const carrierLogos: Record<string, string> = {
   ABCStar: "/logos/abcstar.png",
 };
 
-
-
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -34,9 +32,8 @@ import { getShipment } from "../services/tracking.service";
 import { useRef } from "react";
 
 export default function Tracking() {
-
   const [loading, setLoading] = useState(false);
-  
+
   const [params] = useSearchParams();
   const id = params.get("id") || "";
   const [trackingNumber, setTrackingNumber] = useState(id);
@@ -44,7 +41,7 @@ export default function Tracking() {
   useEffect(() => {
     setTrackingNumber(id);
   }, [id]);
-  
+
   console.log("URL ID:", id);
   console.log("trackingNumber =", trackingNumber);
   const [shipment, setShipment] = useState<any>(null);
@@ -56,13 +53,13 @@ export default function Tracking() {
   useEffect(() => {
     if (!id) return;
 
-     redirected.current = false;
+    redirected.current = false;
     const fetchShipment = async () => {
       setLoading(true);
-      
+
       try {
         const data = await getShipment(id);
-          setError("");
+        setError("");
         console.log("Shipment Response:", data);
 
         // Invalid tracking number
@@ -214,7 +211,8 @@ export default function Tracking() {
                     className="font-bold text-brand-blue hover:underline"
                   >
                     {shipment.trackingId === "AWB number not found"
-                    ? "Shipment data prepared" : shipment.trackingId}
+                      ? "Shipment Data Prepared"
+                      : shipment.trackingId}
                   </a>
 
                   <button onClick={copyId}>
@@ -420,7 +418,7 @@ function Stepper({
   inTransitAt,
   deliveredAt,
   status,
-}: { 
+}: {
   confirmedAt: string;
   inTransitAt: string;
   deliveredAt: string;
