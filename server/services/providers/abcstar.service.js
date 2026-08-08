@@ -33,10 +33,20 @@ export const trackABCStar = async (trackingNo, trackingBaseUrl) => {
     if (error.response) {
       console.error("Status:", error.response.status);
       console.error("Data:", JSON.stringify(error.response.data, null, 2));
-    } else {
-      console.error(error.message);
+
+      // Wrong / invalid AWB
+      if (
+        error.response.status === 404 ||
+        error.response.data?.message?.toLowerCase()?.includes("not found") ||
+        error.response.data?.error?.toLowerCase()?.includes("not found") ||
+        error.response.data?.message?.toLowerCase()?.includes("invalid awb")
+      ) {
+        console.log("❌ ABCStar: AWB number not found");
+        return null;
+      }
     }
 
+    // Real API/server error — existing fallback can handle this
     throw error;
   }
 };
