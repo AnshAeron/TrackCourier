@@ -4,6 +4,24 @@ export const normalizeABCStar = (raw, trackingBaseUrl) => {
 
   const shipment = raw?.data;
 
+  // ABCStar wrong / invalid AWB
+  const errorMessage = String(
+    raw?.message || raw?.error || shipment?.message || shipment?.error || "",
+  ).toLowerCase();
+
+  const isNotFound =
+    !shipment ||
+    errorMessage.includes("not found") ||
+    errorMessage.includes("invalid awb") ||
+    errorMessage.includes("invalid tracking") ||
+    errorMessage.includes("awb number not found") ||
+    errorMessage.includes("no record");
+
+  if (isNotFound) {
+    console.log("❌ ABCStar: AWB number not found");
+    return null;
+  }
+
   if (!shipment) {
     return null;
   }
