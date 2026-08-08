@@ -135,7 +135,9 @@ export default function Tracking() {
             </div>
             <div>
               <h2 className="font-bold text-slate-900">Track Courier</h2>
-              <p className="text-sm text-slate-500">Enter your Airway Bill Number</p>
+              <p className="text-sm text-slate-500">
+                Enter your Airway Bill Number
+              </p>
             </div>
           </div>
           <div className="md:w-[55%]">
@@ -203,7 +205,9 @@ export default function Tracking() {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm text-slate-400">Partner Tracking Id</div>
+                <div className="text-sm text-slate-400">
+                  Partner Tracking Id
+                </div>
                 <div className="inline-flex items-center gap-2">
                   <a
                     href={shipment.trackingUrl}
@@ -285,109 +289,131 @@ export default function Tracking() {
             </ol>
           </Panel>
 
-          {/* Delivery address */}
+          {/* Delivery Address */}
           <Panel title="Delivery Address" icon={MapPin}>
             <div className="rounded-lg bg-slate-50 px-4 py-3 text-sm">
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
                 <span className="text-slate-500">
-                  🏳️ Origin:{" "}
+                  Origin:{" "}
                   <span className="font-semibold text-slate-800">
-                   {shipment.originCountry}
+                    {shipment.originCountry || "-"}
                   </span>
                 </span>
+
                 <span className="hidden sm:inline text-slate-300">|</span>
+
                 <span className="text-slate-500">
-                  🏳️ Destination:{" "}
+                  Destination:{" "}
                   <span className="font-semibold text-slate-800">
-                   {shipment.destinationCountry}
+                    {shipment.destinationCountry || "-"}
                   </span>
                 </span>
               </div>
             </div>
 
-            <div className="mt-4 grid gap-6 sm:grid-cols-2">
-              <div>
-                <div className="flex items-center gap-1 text-sm text-slate-400">
-                  <User className="h-4 w-4" /> Sender
+            <div className="mt-5 grid gap-6 sm:grid-cols-2">
+              {/* Sender */}
+              <div className="rounded-lg border border-slate-100 p-4">
+                <div className="flex items-center gap-2 text-sm text-slate-400">
+                  <User className="h-4 w-4" />
+                  Sender
                 </div>
-                <div className="mt-1 font-bold text-slate-900">
-                  {shipment.sender.name}
+
+                <div className="mt-2 font-bold text-slate-900">
+                  {shipment.sender?.name || "-"}
                 </div>
+
                 <div className="mt-1 flex items-center gap-1 text-sm text-slate-500">
-                  <Phone className="h-4 w-4" /> {shipment.sender.phone}
+                  <Phone className="h-4 w-4" />
+                  {shipment.sender?.phone
+                    ? maskPhone(shipment.sender.phone)
+                    : "-"}
                 </div>
               </div>
-              <div>
-                <div className="flex items-center gap-1 text-sm text-slate-400">
-                  <User className="h-4 w-4" /> Receiver
+
+              {/* Receiver */}
+              <div className="rounded-lg border border-slate-100 p-4">
+                <div className="flex items-center gap-2 text-sm text-slate-400">
+                  <User className="h-4 w-4" />
+                  Receiver
                 </div>
-                <div className="mt-1 font-bold text-slate-900">
-                  {shipment.receiver.name}
+
+                <div className="mt-2 font-bold text-slate-900">
+                  {shipment.receiver?.name || "-"}
                 </div>
-                <div className="mt-1 text-sm text-slate-500">
-                  {shipment.receiver.address.map((l) => (
-                    <div key={l}>{l}</div>
-                  ))}
+
+                <div className="mt-1 flex items-center gap-1 text-sm text-slate-500">
+                  <Phone className="h-4 w-4" />
+                  {shipment.receiver?.phone
+                    ? maskPhone(shipment.receiver.phone)
+                    : "-"}
                 </div>
               </div>
             </div>
           </Panel>
 
-          {/* Shipment details */}
+          {/* Shipment Details */}
           <Panel title="Shipment Details" icon={Package}>
             <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
-              <div className="space-y-4">
-                <Detail
-                  icon={Barcode}
-                  label="AWB Number"
-                  value={shipment.consignmentA || shipment.trackingId}
-                  color="text-brand-blue"
-                />
-                <Detail
-                  icon={Truck}
-                  label="Service Type"
-                  value={shipment.details.serviceType}
-                  color="text-brand-red"
-                />
-                <Detail
-                  icon={CreditCard}
-                  label="Payment Type"
-                  value={shipment.details.paymentType}
-                  color="text-brand-blue"
-                />
-                <Detail
-                  icon={ListChecks}
-                  label="Contents"
-                  value={shipment.details.contents}
-                  color="text-violet-600"
-                />
-                <Detail
-                  icon={Calendar}
-                  label="Pickup Date"
-                  value={shipment.details.pickupDate}
-                  color="text-brand-blue"
-                />
-              </div>
-              <div className="space-y-4">
-                <Detail
-                  icon={Boxes}
-                  label="Total Pieces"
-                  value={String(shipment.details.totalPieces)}
-                  color="text-amber-500"
-                />
-                <Detail
-                  icon={Coins}
-                  label="Declared Value"
-                  value={shipment.details.declaredValue}
-                  color="text-emerald-600"
-                />
-              </div>
+              <Detail
+                icon={Barcode}
+                label="AWB Number"
+                value={shipment.awbNumber || shipment.consignmentA || "-"}
+                color="text-brand-blue"
+              />
+
+              <Detail
+                icon={Calendar}
+                label="Booking Date"
+                value={shipment.bookingDate || "-"}
+                color="text-brand-blue"
+              />
+
+              <Detail
+                icon={ListChecks}
+                label="Contents"
+                value={shipment.contents || "-"}
+                color="text-violet-600"
+              />
+
+              <Detail
+                icon={Boxes}
+                label="Pieces"
+                value={
+                  shipment.pieces !== undefined && shipment.pieces !== null
+                    ? String(shipment.pieces)
+                    : "-"
+                }
+                color="text-amber-500"
+              />
+
+              <Detail
+                icon={Package}
+                label="Weight"
+                value={
+                  shipment.weight !== undefined && shipment.weight !== null
+                    ? `${shipment.weight} kg`
+                    : "-"
+                }
+                color="text-emerald-600"
+              />
             </div>
           </Panel>
         </>
       )}
     </div>
   );
+}
+function maskPhone(phone: string) {
+  if (!phone) return "-";
+
+  if (phone.length <= 4) {
+    return "*".repeat(phone.length);
+  }
+
+  return `${phone.slice(0, 2)}${"*".repeat(
+    phone.length - 4,
+  )}${phone.slice(-2)}`;
 }
 
 function Stepper({

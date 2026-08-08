@@ -26,6 +26,16 @@ export async function handler(event) {
         b.consignment_a,
         b.consignment_b,
         b.created_at,
+        b.sender_name,
+        b.sender_phone,
+        b.recipient_name,
+        b.recipient_phone,
+        b.booking_date,
+        b.contents,
+        b.pieces,
+        b.weight,
+        b.origin_country,
+        b.destination_country,  
         p.id AS provider_id,
         p.name AS provider_name
       FROM bookings b

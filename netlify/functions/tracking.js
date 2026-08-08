@@ -12,9 +12,14 @@ export async function handler(event) {
 
     const booking = await getTrackingDetails(consignmentA);
 
+    console.log("BOOKING FROM SERVICE:", JSON.stringify(booking, null, 2));
+
     if (!booking) {
+      console.log("❌ BOOKING IS NULL");
       return failure(404, "Tracking number not found.");
     }
+
+    console.log("✅ RETURNING SUCCESS RESPONSE");
 
     return success(200, {
       success: true,

@@ -19,6 +19,19 @@ interface Booking {
   provider_id: string;
   consignment_a: string;
   consignment_b: string;
+
+  sender_name: string;
+  sender_phone: string;
+  recipient_name: string;
+  recipient_phone: string;
+
+  booking_date: string;
+  contents: string;
+  pieces: string;
+  weight: string;
+
+  origin_country: string;
+  destination_country: string;
   created_at: string;
 }
 
@@ -30,6 +43,16 @@ export default function Bookings() {
     provider_id: "",
     consignment_a: "",
     consignment_b: "",
+    sender_name:"",
+    sender_phone:"",
+    recipient_name:"",
+    recipient_phone:"",
+    booking_date:"",
+    contents:"",
+    pieces:"",
+    weight:"",
+    origin_country:"",
+    destination_country:"",
   });
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -72,6 +95,16 @@ export default function Bookings() {
       provider_id: booking.provider_id,
       consignment_a: booking.consignment_a,
       consignment_b: booking.consignment_b || "",
+      sender_name: booking.sender_name|| "",
+      sender_phone: booking.sender_phone || "",
+      recipient_name: booking.recipient_name || "",
+      recipient_phone: booking.recipient_phone || "",
+      booking_date: booking.booking_date ? booking.booking_date.substring(0,10) : "",
+      contents: booking.contents || "",
+      pieces: booking.pieces ?.toString() || "",
+      weight: booking.weight?.toString() || "",
+      origin_country: booking.origin_country || "",
+      destination_country: booking.destination_country || "",
     });
   }
   async function loadMore() {
@@ -129,6 +162,16 @@ export default function Bookings() {
        provider_id: "",
        consignment_a: "",
        consignment_b: "",
+        sender_name:"",
+        sender_phone:"",
+       recipient_name:"",
+      recipient_phone:"",
+       booking_date:"",
+       contents:"",
+       pieces:"",
+       weight:"",
+      origin_country:"",
+       destination_country:"",
      });
 
      loadData();
@@ -206,6 +249,130 @@ export default function Bookings() {
             Provider's AWB/Tracking ID
           </label>
 
+          <div>
+  <label className="block mb-2 font-medium">Sender Name</label>
+  <input
+    className="w-full border rounded p-2"
+    value={form.sender_name}
+    onChange={(e) =>
+      setForm({ ...form, sender_name: e.target.value })
+    }
+    required
+  />
+</div>
+
+<div>
+  <label className="block mb-2 font-medium">Sender Phone</label>
+  <input
+    type="tel"
+    className="w-full border rounded p-2"
+    value={form.sender_phone}
+    onChange={(e) =>
+      setForm({ ...form, sender_phone: e.target.value })
+    }
+    required
+  />
+</div>
+<div>
+  <label className="block mb-2 font-medium">Recipient Name</label>
+  <input
+    className="w-full border rounded p-2"
+    value={form.recipient_name}
+    onChange={(e) =>
+      setForm({ ...form, recipient_name: e.target.value })
+    }
+    required
+  />
+</div>
+
+<div>
+  <label className="block mb-2 font-medium">Recipient Phone</label>
+  <input
+    type="tel"
+    className="w-full border rounded p-2"
+    value={form.recipient_phone}
+    onChange={(e) =>
+      setForm({ ...form, recipient_phone: e.target.value })
+    }
+    required
+  />
+</div>
+<div>
+  <label className="block mb-2 font-medium">Booking Date</label>
+  <input
+    type="date"
+    className="w-full border rounded p-2"
+    value={form.booking_date}
+    onChange={(e) =>
+      setForm({ ...form, booking_date: e.target.value })
+    }
+    required
+  />
+</div>
+<div>
+  <label className="block mb-2 font-medium">Contents</label>
+  <input
+    className="w-full border rounded p-2"
+    value={form.contents}
+    onChange={(e) =>
+      setForm({ ...form, contents: e.target.value })
+    }
+  />
+</div>
+<div>
+  <label className="block mb-2 font-medium">Pieces</label>
+  <input
+    type="number"
+    min="1"
+    className="w-full border rounded p-2"
+    value={form.pieces}
+    onChange={(e) =>
+      setForm({ ...form, pieces: e.target.value })
+    }
+    required
+  />
+</div>
+<div>
+  <label className="block mb-2 font-medium">Weight</label>
+  <input
+    type="number"
+    min="0"
+    step="0.01"
+    className="w-full border rounded p-2"
+    value={form.weight}
+    onChange={(e) =>
+      setForm({ ...form, weight: e.target.value })
+    }
+    required
+  />
+</div>
+<div>
+  <label className="block mb-2 font-medium">Origin Country</label>
+  <input
+    className="w-full border rounded p-2"
+    value={form.origin_country}
+    onChange={(e) =>
+      setForm({ ...form, origin_country: e.target.value })
+    }
+    required
+  />
+</div>
+
+<div>
+  <label className="block mb-2 font-medium">
+    Destination Country
+  </label>
+  <input
+    className="w-full border rounded p-2"
+    value={form.destination_country}
+    onChange={(e) =>
+      setForm({ ...form, destination_country: e.target.value })
+    }
+    required
+  />
+</div>
+
+      
           <input
             className="w-full border rounded p-2"
             placeholder="Enter Provider's AWB/Tracking ID"

@@ -103,7 +103,7 @@ force=true
 
 [[redirects]]
 from = "/api/track/*"
-to = "/.netlify/functions/tracking"
+to = "/.netlify/functions/tracking/:splat"
 status = 200
 force = true
 

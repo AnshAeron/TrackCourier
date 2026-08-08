@@ -4,6 +4,16 @@ export interface BookingPayload {
   provider_id: string;
   consignment_a: string;
   consignment_b: string;
+  sender_name: string;
+  sender_phone: string;
+  recipient_name: string;
+  recipient_phone: string;
+  booking_date: string;
+  contents: string;
+  pieces: string;
+  weight: string;
+  origin_country: string;
+  destination_country: string;
 }
 
 

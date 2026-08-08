@@ -31,6 +31,7 @@
         "npm:pg@^8.22.0",
         "npm:postcss@^8.5.22",
         "npm:react-dom@^19.2.7",
+        "npm:react-icons@^5.7.0",
         "npm:react-router-dom@^7.11.0",
         "npm:react@^19.2.7",
         "npm:serverless-http@4",

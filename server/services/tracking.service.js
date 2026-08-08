@@ -14,7 +14,19 @@ export const getTrackingDetails = async (consignmentA) => {
       b.id,
       b.consignment_a,
       b.consignment_b,
+      
+      b.sender_name,
+      b.sender_phone,
+      b.recipient_name,
+      b.recipient_phone,
+      b.booking_date,
+      b.contents,
+      b.pieces,
+      b.weight,
+      b.origin_country,
+      b.destination_country,
       b.provider_last_response,
+
       cp.name AS provider_name,
       cp.tracking_base_url
     FROM bookings b
@@ -24,6 +36,9 @@ export const getTrackingDetails = async (consignmentA) => {
     `,
     [consignmentA.trim()],
   );
+  console.log("TRACKING INPUT:", JSON.stringify(consignmentA));
+  console.log("DB ROWS:", result.rows);
+  console.log("DB ROW COUNT:", result.rows.length);
 
   if (result.rows.length === 0) {
     console.log("❌ No booking found.");
@@ -141,6 +156,32 @@ export const getTrackingDetails = async (consignmentA) => {
   }
 
   shipment.consignmentA = booking.consignment_a;
+
+  // Database booking details
+  shipment.sender = {
+    name: booking.sender_name || "",
+    phone: booking.sender_phone || "",
+  };
+
+  shipment.receiver = {
+    name: booking.recipient_name || "",
+    phone: booking.recipient_phone || "",
+  };
+
+  shipment.originCountry = booking.origin_country || "";
+  shipment.destinationCountry = booking.destination_country || "";
+
+  shipment.awbNumber = booking.consignment_b || booking.consignment_a || "";
+
+  shipment.bookingDate = booking.booking_date
+    ? String(booking.booking_date).substring(0, 10)
+    : "";
+
+  shipment.contents = booking.contents || "";
+
+  shipment.pieces = booking.pieces ?? null;
+
+  shipment.weight = booking.weight ?? null;
 
   console.log("========== FINAL SHIPMENT ==========");
   console.log(JSON.stringify(shipment, null, 2));
