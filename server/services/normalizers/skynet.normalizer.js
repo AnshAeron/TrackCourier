@@ -2,7 +2,7 @@ export const normalizeSkyNet = (raw, tracking_base_url) => {
   console.log("========== NORMALIZER CALLED ==========");
   console.log("RAW RESPONSE:", JSON.stringify(raw, null, 2));
 
- const shipment = Array.isArray(raw) ? raw[0] : raw.booking?.[0];
+  const shipment = Array.isArray(raw) ? raw[0] : raw.booking?.[0];
 
   console.log("SHIPMENT:", shipment);
 
@@ -82,5 +82,4 @@ export const normalizeSkyNet = (raw, tracking_base_url) => {
   console.log(JSON.stringify(shipment, null, 2));
 
   return normalized;
-  
 };

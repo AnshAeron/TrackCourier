@@ -38,8 +38,11 @@ export const trackSkyNet = async (trackingNo, trackingBaseUrl) => {
     ) {
       console.error("❌ SkyNet Error:", response.data[0].tracking_no);
     }
-
-    return normalizeSkyNet(response.data, trackingBaseUrl);
+const normalized = normalizeSkyNet(response.data, trackingBaseUrl);
+if(!normalized) {
+  throw new Error("SkyNet tracking data unavailable");
+}
+    return normalized;
   } catch (error) {
     console.error("========== SKYNET API ERROR ==========");
 

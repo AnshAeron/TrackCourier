@@ -18,8 +18,42 @@ export const normalizeABCStar = (raw, trackingBaseUrl) => {
     errorMessage.includes("no record");
 
   if (isNotFound) {
-    console.log("❌ ABCStar: AWB number not found");
-    return null;
+    console.log("⚠ ABCStar: Shipment data prepared");
+    return {
+      trackingId: "Shipment data prepared",
+      awbNumber: "Shipment data prepared",
+      trackingUrl: null,
+      status: "",
+      carrier: "ABCStar",
+      service: "",
+      consignor: "",
+      consignee: "",
+      destination: "",
+      originCountry: "",
+      destinationCountry: "",
+      sender: {
+        name: "",
+        phone: "",
+      },
+      receiver: {
+        name: "",
+        address: [],
+      },
+      details: {
+        serviceType: "",
+        paymentType: "",
+        contents: "",
+        pickupDate: "",
+        totalPieces: 0,
+        declaredValue: "",
+        weight: "",
+      },
+      travelHistory: [],
+      confirmedAt: "",
+      inTransitAt: "",
+      deliveredAt: "",
+      mapQuery: "",
+    };
   }
 
   if (!shipment) {
