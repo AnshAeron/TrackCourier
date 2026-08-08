@@ -213,7 +213,8 @@ export default function Tracking() {
                     rel="noopener noreferrer"
                     className="font-bold text-brand-blue hover:underline"
                   >
-                    {shipment.trackingId}
+                    {shipment.trackingId === "AWB number not found"
+                    ? "Shipment data prepared" : shipment.trackingId}
                   </a>
 
                   <button onClick={copyId}>
