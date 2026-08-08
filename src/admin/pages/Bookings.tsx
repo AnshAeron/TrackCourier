@@ -280,7 +280,7 @@ export default function Bookings() {
           </select>
         </div>
 
-        <div>
+        <div className="mb-6">
           <label className="block mb-2 font-medium">
             Provider's AWB/Tracking ID
             <span className="text-red-500">*</span>
