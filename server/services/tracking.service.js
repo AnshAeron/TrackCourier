@@ -104,11 +104,6 @@ export const getTrackingDetails = async (consignmentA) => {
         );
       } catch (err) {
         console.log("⚠ ABCStar API failed.");
-        
-        if(err.response?.status === 412)  {
-          console.log("ABCStar Invalid AWB");
-          return null;
-        }
 
         if (booking.provider_last_response) {
           console.log("Using cached response...");
