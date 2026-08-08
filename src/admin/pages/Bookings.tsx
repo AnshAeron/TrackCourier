@@ -298,7 +298,9 @@ export default function Bookings() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+
+        <div className="pt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block mb-2 font-medium">Sender Name</label>
             <input
@@ -323,6 +325,7 @@ export default function Bookings() {
               required
             />
           </div>
+        </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
