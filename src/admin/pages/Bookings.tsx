@@ -43,37 +43,36 @@ export default function Bookings() {
     provider_id: "",
     consignment_a: "",
     consignment_b: "",
-    sender_name:"",
-    sender_phone:"",
-    recipient_name:"",
-    recipient_phone:"",
-    booking_date:"",
-    contents:"",
-    pieces:"",
-    weight:"",
-    origin_country:"",
-    destination_country:"",
+    sender_name: "",
+    sender_phone: "",
+    recipient_name: "",
+    recipient_phone: "",
+    booking_date: "",
+    contents: "",
+    pieces: "",
+    weight: "",
+    origin_country: "",
+    destination_country: "",
   });
   const [editingId, setEditingId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-    const LIMIT = 50;
+  const LIMIT = 50;
 
-    const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(0);
 
-    const [, setHasMore] = useState(true);
+  const [, setHasMore] = useState(true);
 
-    const [filters, setFilters] = useState({
-      tracking: "",
-      provider: "",
-      awb: "",
-      from: "",
-      to: "",
-    });
+  const [filters, setFilters] = useState({
+    tracking: "",
+    provider: "",
+    awb: "",
+    from: "",
+    to: "",
+  });
 
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   async function loadData() {
     try {
@@ -84,7 +83,7 @@ export default function Bookings() {
       setBookings(bookingRes.bookings);
       setOffset(0);
 
-     setHasMore(true);
+      setHasMore(true);
       setEditingId(null);
     } catch (error) {
       console.error(error);
@@ -97,13 +96,15 @@ export default function Bookings() {
       provider_id: booking.provider_id,
       consignment_a: booking.consignment_a,
       consignment_b: booking.consignment_b || "",
-      sender_name: booking.sender_name|| "",
+      sender_name: booking.sender_name || "",
       sender_phone: booking.sender_phone || "",
       recipient_name: booking.recipient_name || "",
       recipient_phone: booking.recipient_phone || "",
-      booking_date: booking.booking_date ? booking.booking_date.substring(0,10) : "",
+      booking_date: booking.booking_date
+        ? booking.booking_date.substring(0, 10)
+        : "",
       contents: booking.contents || "",
-      pieces: booking.pieces ?.toString() || "",
+      pieces: booking.pieces?.toString() || "",
       weight: booking.weight?.toString() || "",
       origin_country: booking.origin_country || "",
       destination_country: booking.destination_country || "",
@@ -144,70 +145,70 @@ export default function Bookings() {
     loadData();
   }, []);
 
- async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-   e.preventDefault();
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-   setError("");
+    setError("");
 
-   // Mandatory field validation
-   if (!form.consignment_a.trim()) {
-     setError("Tracking ID is required.");
-     return;
-   }
+    // Mandatory field validation
+    if (!form.consignment_a.trim()) {
+      setError("Tracking ID is required.");
+      return;
+    }
 
-   if (!form.provider_id) {
-     setError("Courier Provider is required.");
-     return;
-   }
+    if (!form.provider_id) {
+      setError("Courier Provider is required.");
+      return;
+    }
 
-   if (!form.consignment_b.trim()) {
-     setError("Provider's AWB/Tracking ID is required.");
-     return;
-   }
+    if (!form.consignment_b.trim()) {
+      setError("Provider's AWB/Tracking ID is required.");
+      return;
+    }
 
-   setLoading(true);
+    setLoading(true);
 
-   try {
-     if (editingId) {
-       await updateBooking(editingId, form);
-     } else {
-       await createBooking(form);
-     }
+    try {
+      if (editingId) {
+        await updateBooking(editingId, form);
+      } else {
+        await createBooking(form);
+      }
 
-     alert(
-       editingId
-         ? "Booking Updated Successfully"
-         : "Booking Created Successfully",
-     );
+      alert(
+        editingId
+          ? "Booking Updated Successfully"
+          : "Booking Created Successfully",
+      );
 
-     setForm({
-       provider_id: "",
-       consignment_a: "",
-       consignment_b: "",
-       sender_name: "",
-       sender_phone: "",
-       recipient_name: "",
-       recipient_phone: "",
-       booking_date: "",
-       contents: "",
-       pieces: "",
-       weight: "",
-       origin_country: "",
-       destination_country: "",
-     });
+      setForm({
+        provider_id: "",
+        consignment_a: "",
+        consignment_b: "",
+        sender_name: "",
+        sender_phone: "",
+        recipient_name: "",
+        recipient_phone: "",
+        booking_date: "",
+        contents: "",
+        pieces: "",
+        weight: "",
+        origin_country: "",
+        destination_country: "",
+      });
 
-     setEditingId(null);
-     setError("");
+      setEditingId(null);
+      setError("");
 
-     loadData();
-   } catch (err: any) {
-     setError(
-       err?.response?.data?.message || err.message || "Something went wrong.",
-     );
-   } finally {
-     setLoading(false);
-   }
- }
+      loadData();
+    } catch (err: any) {
+      setError(
+        err?.response?.data?.message || err.message || "Something went wrong.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
   async function handleDelete(id: string) {
     if (!window.confirm("Delete this booking?")) return;
 
@@ -298,34 +299,34 @@ export default function Bookings() {
           />
         </div>
 
-
         <div className="pt-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block mb-2 font-medium">Sender Name</label>
-            <input
-              className="w-full border rounded p-2"
-              value={form.sender_name}
-              onChange={(e) =>
-                setForm({ ...form, sender_name: e.target.value })
-              }
-              required
-            />
-          </div>
+          <h2 className="text-xl font font-semibold mb-4">
+            Other Shipment Details
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block mb-2 font-medium">Sender Name</label>
+              <input
+                className="w-full border rounded p-2"
+                value={form.sender_name}
+                onChange={(e) =>
+                  setForm({ ...form, sender_name: e.target.value })
+                }
+              />
+            </div>
 
-          <div>
-            <label className="block mb-2 font-medium">Sender Phone</label>
-            <input
-              type="tel"
-              className="w-full border rounded p-2"
-              value={form.sender_phone}
-              onChange={(e) =>
-                setForm({ ...form, sender_phone: e.target.value })
-              }
-              required
-            />
+            <div>
+              <label className="block mb-2 font-medium">Sender Phone</label>
+              <input
+                type="tel"
+                className="w-full border rounded p-2"
+                value={form.sender_phone}
+                onChange={(e) =>
+                  setForm({ ...form, sender_phone: e.target.value })
+                }
+              />
+            </div>
           </div>
-        </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -337,7 +338,6 @@ export default function Bookings() {
               onChange={(e) =>
                 setForm({ ...form, recipient_name: e.target.value })
               }
-              required
             />
           </div>
 
@@ -350,79 +350,77 @@ export default function Bookings() {
               onChange={(e) =>
                 setForm({ ...form, recipient_phone: e.target.value })
               }
-              required
             />
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block mb-2 font-medium">Booking Date</label>
-          <input
-            type="date"
-            className="w-full border rounded p-2"
-            value={form.booking_date}
-            onChange={(e) => setForm({ ...form, booking_date: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label className="block mb-2 font-medium">Contents</label>
-          <input
-            className="w-full border rounded p-2"
-            value={form.contents}
-            onChange={(e) => setForm({ ...form, contents: e.target.value })}
-          />
+          <div>
+            <label className="block mb-2 font-medium">Booking Date</label>
+            <input
+              type="date"
+              className="w-full border rounded p-2"
+              value={form.booking_date}
+              onChange={(e) =>
+                setForm({ ...form, booking_date: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <label className="block mb-2 font-medium">Contents</label>
+            <input
+              className="w-full border rounded p-2"
+              value={form.contents}
+              onChange={(e) => setForm({ ...form, contents: e.target.value })}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block mb-2 font-medium">Pieces</label>
+              <input
+                type="number"
+                min="1"
+                className="w-full border rounded p-2"
+                value={form.pieces}
+                onChange={(e) => setForm({ ...form, pieces: e.target.value })}
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block mb-2 font-medium">Weight</label>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              className="w-full border rounded p-2"
+              value={form.weight}
+              onChange={(e) => setForm({ ...form, weight: e.target.value })}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block mb-2 font-medium">Pieces</label>
+            <label className="block mb-2 font-medium">Origin Country</label>
             <input
-              type="number"
-              min="1"
               className="w-full border rounded p-2"
-            value={form.pieces}
-            onChange={(e) => setForm({ ...form, pieces: e.target.value })}
-            required
-          />
-        </div>
-        </div>
-        <div>
-          <label className="block mb-2 font-medium">Weight</label>
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            className="w-full border rounded p-2"
-            value={form.weight}
-            onChange={(e) => setForm({ ...form, weight: e.target.value })}
-            required
-          />
-        </div>
-        </div>
-        <div className = "grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-          <label className="block mb-2 font-medium">Origin Country</label>
-          <input
-            className="w-full border rounded p-2"
-            value={form.origin_country}
-            onChange={(e) =>
-              setForm({ ...form, origin_country: e.target.value })
-            }
-            required
-          />
-        </div>
+              value={form.origin_country}
+              onChange={(e) =>
+                setForm({ ...form, origin_country: e.target.value })
+              }
+            />
+          </div>
 
-        <div>
-          <label className="block mb-2 font-medium">Destination Country</label>
-          <input
-            className="w-full border rounded p-2"
-            value={form.destination_country}
-            onChange={(e) =>
-              setForm({ ...form, destination_country: e.target.value })
-            }
-            required
-          />
-        </div>
+          <div>
+            <label className="block mb-2 font-medium">
+              Destination Country
+            </label>
+            <input
+              className="w-full border rounded p-2"
+              value={form.destination_country}
+              onChange={(e) =>
+                setForm({ ...form, destination_country: e.target.value })
+              }
+            />
+          </div>
         </div>
 
         <button
@@ -578,5 +576,4 @@ export default function Bookings() {
       </div>
     </div>
   );
-  
 }
