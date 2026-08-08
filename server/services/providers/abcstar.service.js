@@ -28,25 +28,65 @@ export const trackABCStar = async (trackingNo, trackingBaseUrl) => {
 
     return normalizeABCStar(response.data, trackingBaseUrl);
   } catch (error) {
-    console.error("========== ABCSTAR API ERROR ==========");
+    console.error("ABCStar API Error:", error.response?.data || error.message);
 
-    if (error.response) {
-      console.error("Status:", error.response.status);
-      console.error("Data:", JSON.stringify(error.response.data, null, 2));
+    // Invalid AWB — SkyNet jaisa error shipment return karo
+    if (error.response?.status === 412) {
+      const notFound = "AWB number not found";
 
-      // Wrong / invalid AWB
-      if (
-        error.response.status === 404 ||
-        error.response.data?.message?.toLowerCase()?.includes("not found") ||
-        error.response.data?.error?.toLowerCase()?.includes("not found") ||
-        error.response.data?.message?.toLowerCase()?.includes("invalid awb")
-      ) {
-        console.log("❌ ABCStar: AWB number not found");
-        return null;
-      }
+      return {
+        trackingId: notFound,
+        awbNumber: notFound,
+
+        trackingUrl:
+          trackingBaseUrl && trackingBaseUrl.trim().toUpperCase() !== "NA"
+            ? trackingBaseUrl
+                .trim()
+                .replace("{}", encodeURIComponent(notFound))
+                .replace("[TRACKING_NO]", encodeURIComponent(notFound))
+            : null,
+
+        status: "",
+        carrier: "ABCStar",
+        service: "",
+
+        consignor: "",
+        consignee: "",
+        destination: "",
+
+        originCountry: "",
+        destinationCountry: "",
+
+        sender: {
+          name: "",
+          phone: "",
+        },
+
+        receiver: {
+          name: "",
+          address: [],
+        },
+
+        details: {
+          serviceType: "",
+          paymentType: "",
+          contents: "",
+          pickupDate: "",
+          totalPieces: 0,
+          declaredValue: "",
+          weight: "",
+        },
+
+        travelHistory: [],
+
+        confirmedAt: "",
+        inTransitAt: "",
+        deliveredAt: "",
+
+        mapQuery: "",
+      };
     }
 
-    // Real API/server error — existing fallback can handle this
     throw error;
   }
 };
