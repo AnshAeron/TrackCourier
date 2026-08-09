@@ -69,6 +69,9 @@ export async function handler(event) {
       });
     }
 
+    if (!provider_tracking_id) {
+      provider_tracking_id = "NA";
+    }
     const consignmentA = String(internal_tracking_id).trim();
 
     client = await pool.connect();
