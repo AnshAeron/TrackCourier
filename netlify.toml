@@ -108,11 +108,6 @@ status = 200
 force = true
 
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
-
-[[redirects]]
 from = "/api/bookings/create-update"
 to = "/.netlify/functions/booking-create-update"
 status = 200
@@ -123,3 +118,9 @@ from = "/qr/*"
 to = "/.netlify/functions/qr/:splat"
 status = 200
 force = true
+
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
