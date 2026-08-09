@@ -6,7 +6,7 @@ export async function handler(event) {
       status: "0",
       action: "FAILED",
       message: "Method Not Allowed",
-      awb_number: "",
+      internal_tracking_id: "",
       tracking_url: "",
       tracking_qr_image_url: "",
     });
@@ -40,7 +40,7 @@ export async function handler(event) {
         status: "0",
         action: "FAILED",
         message: "token not found",
-        awb_number: "",
+        internal_tracking_id: "",
         tracking_url: "",
         tracking_qr_image_url: "",
       });
@@ -51,7 +51,7 @@ export async function handler(event) {
         status: "0",
         action: "FAILED",
         message: "Invalid token",
-        awb_number: "",
+        internal_tracking_id: "",
         tracking_url: "",
         tracking_qr_image_url: "",
       });
@@ -63,7 +63,7 @@ export async function handler(event) {
         status: "0",
         action: "FAILED",
         message: "Not found mandatory fields - internal_tracking_id and provider",
-        awb_number: "",
+        internal_tracking_id: "",
         tracking_url: "",
         tracking_qr_image_url: "",
       });
@@ -108,7 +108,7 @@ export async function handler(event) {
         status: "0",
         action: "FAILED",
         message: "Inavlid provider",
-        awb_number: "",
+        internal_tracking_id: "",
         tracking_url: "",
         tracking_qr_image_url: "",
       });
@@ -257,7 +257,7 @@ export async function handler(event) {
     return jsonResponse(200, {
       status: "1",
       action,
-      awb_number: consignmentA,
+      internal_tracking_id: consignmentA,
       tracking_url: trackingUrl,
       tracking_qr_image_url: trackingQrImageUrl,
     });
@@ -268,7 +268,7 @@ export async function handler(event) {
       status: "0",
       action: "FAILED",
       message: "Some processing error, please try again",
-      awb_number: "",
+      internal_tracking_id: "",
       tracking_url: "",
       tracking_qr_image_url: "",
     });
