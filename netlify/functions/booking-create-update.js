@@ -5,6 +5,7 @@ export async function handler(event) {
     return jsonResponse(405, {
       status: "0",
       action: "FAILED",
+      message: "Method Not Allowed",
       awb_number: "",
       tracking_url: "",
       tracking_qr_image_url: "",
@@ -17,10 +18,11 @@ export async function handler(event) {
     const body = JSON.parse(event.body || "{}");
 
     const {
+      token,
       provider_id,
       provider,
-      consignment_a,
-      consignment_b,
+      internal_tracking_id,
+      provider_tracking_id,
       sender_name,
       sender_phone,
       recipient_name,
@@ -33,18 +35,41 @@ export async function handler(event) {
       destination_country,
     } = body;
 
-    // Only these two are mandatory
-    if (!consignment_a || (!provider_id && !provider)) {
-      return jsonResponse(400, {
+    if (!token) {
+      return jsonResponse(403, {
         status: "0",
         action: "FAILED",
+        message: "token not found",
         awb_number: "",
         tracking_url: "",
         tracking_qr_image_url: "",
       });
     }
 
-    const consignmentA = String(consignment_a).trim();
+    if (token != "dhaqo9q8dzmv63eahdb5m0fla3eskwvg") {
+      return jsonResponse(403, {
+        status: "0",
+        action: "FAILED",
+        message: "Invalid token",
+        awb_number: "",
+        tracking_url: "",
+        tracking_qr_image_url: "",
+      });
+    }
+    
+    // Only these two are mandatory
+    if (!internal_tracking_id || (!provider_id && !provider)) {
+      return jsonResponse(400, {
+        status: "0",
+        action: "FAILED",
+        message: "Not found mandatory fields - internal_tracking_id and provider ",
+        awb_number: "",
+        tracking_url: "",
+        tracking_qr_image_url: "",
+      });
+    }
+
+    const consignmentA = String(internal_tracking_id).trim();
 
     client = await pool.connect();
 
@@ -82,6 +107,7 @@ export async function handler(event) {
       return jsonResponse(400, {
         status: "0",
         action: "FAILED",
+        message: "Inavlid provider",
         awb_number: "",
         tracking_url: "",
         tracking_qr_image_url: "",
@@ -139,7 +165,7 @@ export async function handler(event) {
         `,
         [
           resolvedProviderId,
-          consignment_b || null,
+          provider_tracking_id || null,
           sender_name || null,
           sender_phone || null,
           recipient_name || null,
@@ -191,7 +217,7 @@ export async function handler(event) {
         [
           resolvedProviderId,
           consignmentA,
-          consignment_b || null,
+          provider_tracking_id || null,
           sender_name || null,
           sender_phone || null,
           recipient_name || null,
@@ -241,6 +267,7 @@ export async function handler(event) {
     return jsonResponse(500, {
       status: "0",
       action: "FAILED",
+      message: "Some processing error, please try again",
       awb_number: "",
       tracking_url: "",
       tracking_qr_image_url: "",
