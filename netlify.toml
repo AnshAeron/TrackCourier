@@ -108,7 +108,7 @@ status = 200
 force = true
 
 [[redirects]]
-from = "/api/bookings/create-update"
+from = "/api/booking/publish"
 to = "/.netlify/functions/booking-create-update"
 status = 200
 force = true
@@ -118,7 +118,6 @@ from = "/qr/*"
 to = "/.netlify/functions/qr/:splat"
 status = 200
 force = true
-
 
 [[redirects]]
 from = "/*"
