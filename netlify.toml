@@ -113,7 +113,7 @@ to = "/index.html"
 status = 200
 
 [[redirects]]
-from = "/api/bookings/publish"
+from = "/api/booking/publish"
 to = "/.netlify/functions/booking-create-update"
 status = 200
 force = true
