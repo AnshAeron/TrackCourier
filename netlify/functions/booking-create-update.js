@@ -62,7 +62,7 @@ export async function handler(event) {
       return jsonResponse(400, {
         status: "0",
         action: "FAILED",
-        message: "Not found mandatory fields - internal_tracking_id and provider ",
+        message: "Not found mandatory fields - internal_tracking_id and provider",
         awb_number: "",
         tracking_url: "",
         tracking_qr_image_url: "",
