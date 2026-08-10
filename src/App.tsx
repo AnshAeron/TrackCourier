@@ -93,7 +93,7 @@ export default function App() {
       {/* 2. WhatsApp Button added here (only renders on non-admin routes) */}
       {!isAdmin && (
         <WhatsAppButton
-          phoneNumber="15551234567" // Replace with your phone number (including country code)
+          phoneNumber="919216401935" // Replace with your phone number (including country code)
           message="Hi! I have a question regarding my booking/tracking."
           tooltipText="Chat with us"
         />
