@@ -369,6 +369,8 @@ export default function Bookings() {
             <label className="block mb-2 font-medium">Contents</label>
             <input
               className="w-full border rounded p-2"
+              name="shipmentContent"
+              autoComplete="on"
               value={form.contents}
               onChange={(e) => setForm({ ...form, contents: e.target.value })}
             />
@@ -388,10 +390,11 @@ export default function Bookings() {
           <div>
             <label className="block mb-2 font-medium">Weight</label>
             <input
-              type="number"
-              min="0"
-              step="0.01"
+              type="text"
+              placeholder="100gm or 2kg"
               className="w-full border rounded p-2"
+              name="shipmentWeight"
+              autoComplete="on"
               value={form.weight}
               onChange={(e) => setForm({ ...form, weight: e.target.value })}
             />
@@ -402,6 +405,8 @@ export default function Bookings() {
             <label className="block mb-2 font-medium">Origin Country</label>
             <input
               className="w-full border rounded p-2"
+              name="shipmentOrigin"
+              autoComplete="on"
               value={form.origin_country}
               onChange={(e) =>
                 setForm({ ...form, origin_country: e.target.value })
@@ -415,6 +420,8 @@ export default function Bookings() {
             </label>
             <input
               className="w-full border rounded p-2"
+              name="shipmentDestination"
+              autoComplete="on"
               value={form.destination_country}
               onChange={(e) =>
                 setForm({ ...form, destination_country: e.target.value })
