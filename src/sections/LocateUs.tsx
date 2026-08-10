@@ -1,15 +1,6 @@
 import { MapPin, Building2, Clock, ExternalLink } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
-const branches = [
-  {
-    name: "Kurali Office",
-    color: "text-brand-blue",
-    pin: "text-brand-blue",
-    hours: "bg-blue-50 text-brand-blue",
-    address: ["Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"],
-  },
-];
 
 export default function LocateUs() {
   const mapSrc =
