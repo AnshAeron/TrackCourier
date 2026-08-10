@@ -114,8 +114,8 @@ export default function Tracking() {
 
   const summary = hasShipment
     ? [
-        { icon: User, label: "Consignor", value: shipment?.consignor },
-        { icon: User, label: "Consignee", value: shipment?.consignee },
+        { icon: User, label: "Consignor", value: shipment.sender?.name || "-" },
+        { icon: User, label: "Consignee", value: shipment.receiver?.name || "-" },
         { icon: MapPin, label: "Destination", value: shipment?.destination },
       ]
     : [];
@@ -389,7 +389,7 @@ export default function Tracking() {
                 label="Weight"
                 value={
                   shipment.weight !== undefined && shipment.weight !== null
-                    ? `${shipment.weight} kg`
+                    ? `${shipment.weight}`
                     : "-"
                 }
                 color="text-emerald-600"
