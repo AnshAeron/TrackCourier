@@ -42,7 +42,7 @@ export default function LocateUs() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-wide text-blue-200">
-                    Our Office
+                    Rupnagar Office
                   </p>
                   <p className="text-xl font-bold"></p>
                   <p className="mt-2 flex items-start gap-1 text-blue-100">
@@ -83,6 +83,55 @@ export default function LocateUs() {
                 </div>
               </div>
             </div>
+
+            <div className="mt-8 overflow-hidden rounded-2xl bg-brand-navy text-white shadow-card">
+              <div className="flex items-start gap-4 p-6">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white">
+                  <Building2 className="h-7 w-7 text-brand-blue" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-blue-200">
+                    Kurali Office
+                  </p>
+                  <p className="text-xl font-bold"></p>
+                  <p className="mt-2 flex items-start gap-1 text-blue-100">
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+                    Surinder Enterprises <br />
+                    Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103
+                  </p>
+
+                  <a
+                    href="https://maps.google.com/?q=TRACKON+COURIER Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 flex items-center gap-1 text-sm font-medium text-blue-200 hover:text-white hover:underline transition-colors"
+                  >
+                    View on Map
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                  <a
+                    href="https://wa.me/919023532827?text=Hello,%20I%20have%20an%20enquiry"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 flex items-center gap-1 text-sm font-medium text-green-300 hover:text-green-200 hover:underline transition-colors"
+                  >
+                    <FaWhatsapp className="h-4 w-4 text-green-400" />
+                    +91 90235 32827
+                  </a>
+                </div>
+              </div>
+              <div className="mx-6 border-t border-white/10" />
+              <div className="flex items-center gap-4 p-6">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white/10">
+                  <Clock className="h-7 w-7 text-white" />
+                </div>
+                <div>
+                  <p className="font-semibold">Working Hours</p>
+                  <p className="text-blue-100">Mon – Sat: 9:00 AM – 7:00 PM</p>
+                  <p className="text-blue-100">Sunday: <span className="font-bold text-white">Closed</span></p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="overflow-hidden rounded-2xl shadow-card">
@@ -93,57 +142,14 @@ export default function LocateUs() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
-        </div>
-
-        <div className="mt-8 rounded-2xl bg-white p-6 shadow-card">
-          <div className="grid gap-6 lg:grid-cols-4 lg:divide-x lg:divide-slate-100">
-            <div className="flex items-start gap-4 border-l-4 border-brand-blue pl-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-50">
-                <Building2 className="h-6 w-6 text-brand-blue" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-slate-900">Branch Offices</h3>
-                <p className="text-sm text-slate-500">Our growing network to serve you better.</p>
-              </div>
-            </div>
-            {branches.map((b) => (
-              <div key={b.name} className="lg:pl-6">
-                <div className="flex items-center gap-2">
-                  <MapPin className={`h-5 w-5 ${b.pin}`} />
-                  <h4 className={`font-bold ${b.color}`}>{b.name}</h4>
-                </div>
-                <p className="mt-2 text-sm text-slate-500">
-                  {b.address[0]}
-                  <br />
-                  {b.address[1]}
-                </p>
-
-                <a
-                    href="https://maps.google.com/?q=TRACKON+COURIER Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 flex items-center gap-1 text-sm font-medium text-brand-blue hover:text-brand-blue hover:underline transition-colors"
-                  >
-                    View on Map
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                  <a
-                    href="https://wa.me/919023532827?text=Hello,%20I%20have%20an%20enquiry"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 flex items-center gap-1 text-sm font-medium text-emerald-600 hover:text-emerald-600 hover:underline transition-colors"
-                  >
-                    <FaWhatsapp className="h-4 w-4 text-emerald-600" />
-                    +91 90235 32827
-                  </a>
-
-                <div className={`mt-3 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold ${b.hours}`}>
-                  <Clock className="h-3.5 w-3.5" />
-                  Mon – Sat: 9:00 AM – 7:00 PM
-                </div>
-              </div>
-            ))}
+            <br />
+            <iframe
+              title="Track My Courier location"
+              src="https://www.google.com/maps?q=TRACKON+COURIER Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"
+              className="h-[420px] w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </div>
