@@ -58,7 +58,7 @@ export default function LocateUs() {
                     className="mt-2 flex items-center gap-1 text-sm font-medium text-green-300 hover:text-green-200 hover:underline transition-colors"
                   >
                     <FaWhatsapp className="h-4 w-4 text-green-400" />
-                    +91 92164 01935
+                    +91 92164 01935  Chat Now <span aria-hidden="true">↗</span>
                   </a>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export default function LocateUs() {
                     className="mt-2 flex items-center gap-1 text-sm font-medium text-green-300 hover:text-green-200 hover:underline transition-colors"
                   >
                     <FaWhatsapp className="h-4 w-4 text-green-400" />
-                    +91 90235 32827
+                    +91 90235 32827 Chat Now <span aria-hidden="true">↗</span>
                   </a>
                 </div>
               </div>

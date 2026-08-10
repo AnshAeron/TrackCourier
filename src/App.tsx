@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton"; // 1. Added import
 
 import Home from "./pages/Home";
 import Tracking from "./pages/Tracking";
@@ -55,8 +56,6 @@ export default function App() {
           >
             <Route index element={<Navigate to="bookings" replace />} />
 
-           
-
             <Route
               path="bookings"
               element={
@@ -90,6 +89,15 @@ export default function App() {
       </main>
 
       {!isAdmin && <Footer />}
+
+      {/* 2. WhatsApp Button added here (only renders on non-admin routes) */}
+      {!isAdmin && (
+        <WhatsAppButton
+          phoneNumber="15551234567" // Replace with your phone number (including country code)
+          message="Hi! I have a question regarding my booking/tracking."
+          tooltipText="Chat with us"
+        />
+      )}
     </div>
   );
 }
