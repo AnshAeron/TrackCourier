@@ -10,7 +10,7 @@ interface WhatsAppButtonProps {
 
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   phoneNumber = '919216401935',
-  message = 'Hello! I would like to inquire about...',
+  message = 'Hello, I have an enquiry',
 }) => {
   const formattedMessage = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${formattedMessage}`;
