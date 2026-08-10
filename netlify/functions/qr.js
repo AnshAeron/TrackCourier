@@ -22,7 +22,7 @@ export async function handler(event) {
     const qrBuffer = await QRCode.toBuffer(trackingUrl, {
       type: "png",
       width: 500,
-      margin: 2,
+      margin: 4,
     });
 
     return {
