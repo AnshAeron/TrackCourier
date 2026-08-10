@@ -136,7 +136,7 @@ export default function LocateUs() {
             <br />
             <iframe
               title="Track My Courier location"
-              src="https://www.google.com/maps?q=TRACKON+COURIER Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103"
+              src="https://www.google.com/maps?q=TRACKON+COURIER Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103&output=embed"
               className="h-[420px] w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
