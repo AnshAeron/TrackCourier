@@ -114,8 +114,16 @@ export default function Tracking() {
 
   const summary = hasShipment
     ? [
-        { icon: User, label: "Consignor", value: shipment?.sender?.name || shipment?.consignor || "-" },
-        { icon: User, label: "Consignee", value: shipment?.receiver?.name || shipment?.consignee || "-" },
+        {
+          icon: User,
+          label: "Consignor",
+          value: shipment?.sender?.name || shipment?.consignor || "-",
+        },
+        {
+          icon: User,
+          label: "Consignee",
+          value: shipment?.receiver?.name || shipment?.consignee || "-",
+        },
         { icon: MapPin, label: "Destination", value: shipment?.destination },
       ]
     : [];
@@ -143,19 +151,19 @@ export default function Tracking() {
                 onChange={setTrackingNumber}
                 loading={loading}
               />
-
-              {error && (
-                <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-600">
-                  {error}
-                </div>
-              )}
             </div>
           </div>
         </div>
       </div>
-      {error && (
-        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm font-medium text-red-600">
-          {error}
+      {error && !hasShipment && !loading && (
+        <div className="rounded-2xl bg-white p-8 shadow-card text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
+            <Package className="h-8 w-8 text-red-500" />
+          </div>
+
+          <h2 className="mt-4 text-xl font-bold text-slate-900">
+            Invalid Tracking / AWB Number
+          </h2>
         </div>
       )}
       {hasShipment && !shipment.redirectOnly && (
@@ -210,7 +218,8 @@ export default function Tracking() {
                     rel="noopener noreferrer"
                     className="font-bold text-brand-blue hover:underline"
                   >
-                    {shipment.trackingId === "AWB number not found"
+                    {shipment.apiFailed ||
+                    shipment.trackingId === "AWB number not found"
                       ? "Shipment Data Prepared"
                       : shipment.trackingId}
                   </a>

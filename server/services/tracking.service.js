@@ -66,6 +66,7 @@ export const getTrackingDetails = async (consignmentA) => {
         break;
 
       case "ABCStar":
+        throw new Error("TEST API FAILURE");
         shipment = await trackABCStar(
           booking.consignment_b,
           booking.tracking_base_url,
@@ -120,6 +121,7 @@ export const getTrackingDetails = async (consignmentA) => {
    * =========================================================
    */
 
+  /*
   if (apiFailed) {
     if (booking.provider_last_response) {
       console.log("♻ Using cached tracking response from DB...");
@@ -130,6 +132,23 @@ export const getTrackingDetails = async (consignmentA) => {
 
       return null;
     }
+  }
+  */
+  if (apiFailed) {
+    console.log("⚠ Provider API failed. Cached response will not be used.");
+
+    shipment = {
+      apiFailed: true,
+      trackingId: booking.consignment_b || "",
+      carrier: provider,
+      status: "Tracking Unavailable",
+      service: "",
+      trackingUrl: "",
+      travelHistory: [],
+      confirmedAT: "",
+      inTransitAT: "",
+      deliveredAT: "",
+    };
   }
 
   /*
