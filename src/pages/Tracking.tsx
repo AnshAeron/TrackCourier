@@ -114,8 +114,8 @@ export default function Tracking() {
 
   const summary = hasShipment
     ? [
-        { icon: User, label: "Consignor", value: shipment.sender?.name || "-" },
-        { icon: User, label: "Consignee", value: shipment.receiver?.name || "-" },
+        { icon: User, label: "Consignor", value: shipment?.sender?.name ?? shipment?.consignor ?? "-" },
+        { icon: User, label: "Consignee", value: shipment?.receiver?.name ?? shipment?.consignee ?? "-" },
         { icon: MapPin, label: "Destination", value: shipment?.destination },
       ]
     : [];
@@ -317,7 +317,7 @@ export default function Tracking() {
                 </div>
 
                 <div className="mt-2 font-bold text-slate-900">
-                  {shipment.sender?.name || "-"}
+                  {shipment?.sender?.name ?? shipment?.consignor ?? "-"}
                 </div>
 
                 <div className="mt-1 flex items-center gap-1 text-sm text-slate-500">
@@ -336,7 +336,7 @@ export default function Tracking() {
                 </div>
 
                 <div className="mt-2 font-bold text-slate-900">
-                  {shipment.receiver?.name || "-"}
+                  {shipment?.receiver?.name ?? shipment?.consignee ?? "-"}
                 </div>
 
                 <div className="mt-1 flex items-center gap-1 text-sm text-slate-500">
