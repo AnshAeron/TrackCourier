@@ -39,7 +39,7 @@ export default function LocateUs() {
                   <p className="mt-2 flex items-start gap-1 text-blue-100">
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
                     Anuj Communication <br />
-                    2837, Mata Rani Rd, Gugga Mari Mohalla, Rupnagar, Punjab-140001
+                    2837, Mata Rani Rd, Rupnagar, Punjab-140001
                   </p>
 
                   <a
@@ -88,7 +88,7 @@ export default function LocateUs() {
                   <p className="mt-2 flex items-start gap-1 text-blue-100">
                     <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
                     Surinder Enterprises <br />
-                    Ropar Rd, opposite punjab national bank, Ward No.5, Ward No. 6, Kurali, Punjab 140103
+                    Ropar Rd, opposite punjab national bank, Ward No.5, Kurali, Punjab 140103
                   </p>
 
                   <a
