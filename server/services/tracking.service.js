@@ -66,7 +66,6 @@ export const getTrackingDetails = async (consignmentA) => {
         break;
 
       case "ABCStar":
-        throw new Error("TEST API FAILURE");
         shipment = await trackABCStar(
           booking.consignment_b,
           booking.tracking_base_url,
