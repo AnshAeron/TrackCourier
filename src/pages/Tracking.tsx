@@ -365,7 +365,7 @@ export default function Tracking() {
               <Detail
                 icon={Barcode}
                 label="AWB Number"
-                value={shipment.awbNumber || shipment.consignmentA || "-"}
+                value={shipment.consignmentA || "-"}
                 color="text-brand-blue"
               />
 
