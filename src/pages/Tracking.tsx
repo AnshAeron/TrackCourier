@@ -5,6 +5,7 @@ const carrierLogos: Record<string, string> = {
   BlueDart: "/logos/bluedart.png",
   Delhivery: "/logos/delhivery.png",
   ABCStar: "/logos/abcstar.png",
+  M5C: "/logos/m5c.png",
 };
 
 import { useEffect, useState } from "react";
@@ -364,7 +365,7 @@ export default function Tracking() {
               <Detail
                 icon={Barcode}
                 label="AWB Number"
-                value={shipment.consignmentA || "-"}
+                value={shipment.awbNumber || shipment.consignmentA || "-"}
                 color="text-brand-blue"
               />
 
