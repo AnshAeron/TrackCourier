@@ -82,13 +82,14 @@ export default function Tracking() {
           setShipment(data.booking);
 
           // Fir external tracking kholo
-          setTimeout(() => {
-            window.open(
-              data.booking.trackingUrl,
-              "_blank",
-              "noopener,noreferrer",
-            );
-          }, 300);
+          // setTimeout(() => {
+          //   window.open(
+          //     data.booking.trackingUrl,
+          //     "_blank",
+          //     "noopener,noreferrer",
+          //   );
+          // }, 300);
+          window.location.href = data.booking.trackingUrl;
         } else {
           setShipment(data.booking);
         }
