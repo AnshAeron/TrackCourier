@@ -89,7 +89,7 @@ export default function Tracking() {
           //     "noopener,noreferrer",
           //   );
           // }, 300);
-          window.location.href = data.booking.trackingUrl;
+          window.location.replace(data.booking.trackingUrl);
         } else {
           setShipment(data.booking);
         }
