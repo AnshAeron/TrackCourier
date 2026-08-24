@@ -233,8 +233,33 @@ export async function handler(event) {
 
       booking = insertResult.rows[0];
       action = "CREATED";
-    }
 
+    try {
+      const baseUrl = process.env.URL || "http://localhost:8888";
+
+      const smsResponse = await fetch(
+        `${baseUrl}/.netlify/functions/send-sms`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token: process.env.SMS_FUNCTION_TOKEN,
+            consignment_a: consignmentA,
+          }),
+        },
+      );
+
+      const smsResult = await smsResponse.json();
+
+      console.log("========== CREATE BOOKING SMS ==========");
+      console.log("SMS RESPONSE:", smsResult);
+    } catch (smsError) {
+      console.error("Create booking SMS failed:", smsError);
+    }
+    }
+    
     /*
      * ---------------------------------------------------------
      * 5. Generate tracking URL

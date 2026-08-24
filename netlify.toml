@@ -114,6 +114,12 @@ status = 200
 force = true
 
 [[redirects]]
+from = "/api/send-sms"
+to = "/.netlify/functions/send-sms"
+status = 200
+force = true
+
+[[redirects]]
 from = "/qr/*"
 to = "/.netlify/functions/qr/:splat"
 status = 200

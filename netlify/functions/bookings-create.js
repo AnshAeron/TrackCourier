@@ -1,7 +1,6 @@
 import { pool } from "../lib/db.js";
 import { requireAdmin } from "../../shared/auth.js";
 import { success, failure } from "../../shared/response.js";
-import axios from "axios";
 
 export async function handler(event) {
   try {
@@ -73,56 +72,34 @@ export async function handler(event) {
     );
 
     const booking = result.rows[0];
+    try {
+      const baseUrl = process.env.URL || "http://localhost:8888";
 
-    if (sender_phone) {
-      console.log("SMS USERNAME:", process.env.SMS_USERNAME);
-      console.log(
-        "SMS CREDENTIAL CHECK:",
-        process.env.SMS_USERNAME === "anujcom.trans",
-        process.env.SMS_PASSWORD === "wVIIc",
+      const smsResponse = await fetch(
+        `${baseUrl}/.netlify/functions/send-sms`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: event.headers.authorization || "",
+          },
+          body: JSON.stringify({
+            consignment_a: booking.consignment_a,
+          }),
+        },
       );
-      console.log("SMS PASSWORD LENGTH:", process.env.SMS_PASSWORD?.length);
-      console.log("SMS FROM:", process.env.SMS_FROM);
-      console.log("SMS TO:", sender_phone);
-      try {
-        const formattedBookingDate = booking_date
-          ? booking_date.split("T")[0].split("-").reverse().join("-")
-          : "";
-        const smsText =
-          `Anuj Communications Courier Ropar We have received AWB No. ${consignment_a} ` +
-          `Dated ${formattedBookingDate|| ""} Booked for ${destination_country || ""} ` +
-          `for ${recipient_name || ""} ` +
-          `https://trackmycourier.in/track?id=${encodeURIComponent(consignment_a)}`;
-const smsResponse = await axios.get(
-  "https://sms.nationalbulksms.com/fe/api/v1/send",
-  {
-    params: {
-      username: process.env.SMS_USERNAME,
-      password: process.env.SMS_PASSWORD,
-      unicode: "false",
-      from: process.env.SMS_FROM,
-      to: sender_phone,
-      dltContentId: process.env.SMS_DLT_CONTENT_ID,
-      dltPrincipalEntityId: process.env.SMS_DLT_PRINCIPAL_ENTITY_ID,
-      text: smsText,
-    },
-  },
-);
 
-console.log("========== SMS API RESPONSE ==========");
-console.log("HTTP STATUS:", smsResponse.status);
-console.log("RESPONSE:", smsResponse.data);
-      } catch (smsError) {
-        console.error(
-          "⚠ SMS failed:",
-          smsError.response?.data || smsError.message,
-        );
-      }
+      const smsResult = await smsResponse.json();
+
+      console.log("Create Booking SMS Response:", smsResult);
+    } catch (smsError) {
+      console.error("Create Booking SMS Error:", smsError);
     }
+
     return success(201, {
       success: true,
       message: "Booking created successfully.",
-      booking
+      booking ,
     });
   } catch (err) {
     console.error("Booking create error:", err);

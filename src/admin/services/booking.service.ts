@@ -66,3 +66,11 @@ export async function getProviders() {
   const { data } = await api.get("/providers");
   return data;
 }
+
+export async function sendBookingSMS(consignment_a: string) {
+  const { data } = await api.post("/send-sms", {
+    consignment_a,
+  });
+
+  return data;
+}

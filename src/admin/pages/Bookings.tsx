@@ -6,7 +6,9 @@ import {
   getProviders,
   updateBooking,
   deleteBooking,
+  sendBookingSMS,
 } from "../services/booking.service";
+
 
 interface Provider {
   id: string;
@@ -565,6 +567,33 @@ export default function Bookings() {
                       className="ml-4 text-red-600 hover:underline"
                     >
                       Delete
+                    </button>
+                  )}
+                  {user.role === "ADMIN" && (
+                    <button
+                      onClick={async () => {
+                        try {
+                          const res = await sendBookingSMS(
+                            booking.consignment_a,
+                          );
+
+                          if (res.success) {
+                            alert("SMS sent successfully.");
+                          } else {
+                            alert(res.message || "SMS failed.");
+                          }
+                        } catch (err: any) {
+                          console.error(err);
+                          alert(
+                            err?.response?.data?.message ||
+                              err?.message ||
+                              "SMS failed.",
+                          );
+                        }
+                      }}
+                      className="ml-4 text-green-600 hover:underline"
+                    >
+                      Send SMS
                     </button>
                   )}
                 </td>
