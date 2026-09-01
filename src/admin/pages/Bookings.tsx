@@ -528,7 +528,8 @@ export default function Bookings() {
           <tr className="bg-gray-100">
             <th className="border p-3">Tracking ID</th>
             <th className="border p-3">Provider</th>
-            <th className="border p-3">Provider's AWB/Tracking ID</th>
+            <th className="border p-3">Sender</th>
+            <th className="border p-3">Receiver</th>
             <th className="border p-3">Created At</th>
             <th className="border p-3">Action</th>
           </tr>
@@ -543,11 +544,12 @@ export default function Bookings() {
             </tr>
           ) : (
             bookings.map((booking) => (
-              <tr key={booking.id}>
+              <tr key={booking.id} style={{ fontSize: "14px" }}>
                 <td className="border p-3">{booking.consignment_a}</td>
-                <td className="border p-3">{booking.provider_name}</td>
+                <td className="border p-3">{booking.provider_name}<br />{booking.consignment_b || "-"}</td>
 
-                <td className="border p-3">{booking.consignment_b || "-"}</td>
+                <td className="border p-3">{booking.sender_name || "-"}<br />{booking.sender_phone || "-"}<br />{booking.origin_country || "-"}</td>
+                <td className="border p-3">{booking.recipient_name || "-"}<br />{booking.recipient_phone || "-"}<br />{booking.destination_country || "-"}</td>
 
                 <td className="border p-3">
                   {new Date(booking.created_at).toLocaleString()}
