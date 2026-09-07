@@ -10,6 +10,8 @@ export default function Footer() {
           <a href="#" className="hover:text-brand-blue" onClick={(e) => e.preventDefault()}>Terms &amp; Conditions</a>
           <span className="hidden sm:inline text-slate-300">|</span>
           <a href="#" className="hover:text-brand-blue" onClick={(e) => e.preventDefault()}>Privacy Policy</a>
+          <span className="hidden sm:inline text-slate-300">|</span>
+          <a href="pay" className="text-brand-blue">Make Payment</a>
         </div>
       </div>
     </footer>
