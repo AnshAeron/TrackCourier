@@ -120,6 +120,12 @@ status = 200
 force = true
 
 [[redirects]]
+from = "/pay"
+to = "https://razorpay.me/@anujcommunication470"
+status = 302
+force = true
+
+[[redirects]]
 from = "/qr/*"
 to = "/.netlify/functions/qr/:splat"
 status = 200

@@ -11,6 +11,13 @@ export default function Header() {
         <div className="flex h-16 sm:h-20 items-center justify-between">
           <Logo className="text-2xl sm:text-3xl" />
           <button
+            onClick={() => navigate("/pay")}
+            className="inline-flex items-center gap-2 rounded-lg bg-brand-blue px-4 sm:px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-blue-700"
+          >
+            <span className="hidden sm:inline">Make Payment</span>
+            <span className="sm:hidden">Track</span>
+          </button>
+          <button
             onClick={() => navigate("/track")}
             className="inline-flex items-center gap-2 rounded-lg bg-brand-blue px-4 sm:px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-blue-700"
           >
