@@ -46,7 +46,7 @@ export const trackDilliKing = async (trackingNo) => {
       carrier: "Dilli King",
       status: "Tracking Unavailable",
       service: "",
-      trackingUrl: "",
+      trackingUrl: "https://www.dilliking.com/tracking.php",
       travelHistory: [],
       confirmedAT: "",
       inTransitAT: "",

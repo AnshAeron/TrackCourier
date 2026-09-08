@@ -6,6 +6,7 @@ const carrierLogos: Record<string, string> = {
   Delhivery: "/logos/delhivery.png",
   ABCStar: "/logos/abcstar.png",
   M5C: "/logos/m5c.png",
+  DilliKing: "/logos/DilliKing.png",
 };
 
 import { useEffect, useState } from "react";
