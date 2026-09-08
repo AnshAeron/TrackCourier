@@ -127,7 +127,9 @@ export const trackDilliKing = async (trackingNo, trackingBaseUrl) => {
     carrier: "Dilli King",
     status: latestStatus,
     service: "",
-    trackingUrl: "",
+    trackingUrl: trackingBaseUrl
+  ? trackingBaseUrl.replace("{}", encodeURIComponent(airwayBill))
+  : "",
     travelHistory,
     confirmedAt,
     inTransitAt,
