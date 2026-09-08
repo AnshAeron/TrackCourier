@@ -2,6 +2,9 @@ import { pool } from "../../netlify/lib/db.js";
 import { trackSkyNet } from "./providers/skynet.service.js";
 import { trackABCStar } from "./providers/abcstar.service.js";
 import { trackM5C } from "./providers/m5c.service.js";
+import { trackDilliKing } from "./providers/dilliking.service.js";
+
+
 
 export const getTrackingDetails = async (consignmentA) => {
   console.log("========================================");
@@ -77,6 +80,9 @@ export const getTrackingDetails = async (consignmentA) => {
           booking.consignment_b,
           booking.tracking_base_url,
         );
+        break;
+      case "Dilli King":
+        shipment = await trackDilliKing(booking.consignment_b);
         break;
 
       default: {
