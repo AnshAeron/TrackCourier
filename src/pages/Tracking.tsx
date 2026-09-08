@@ -437,19 +437,19 @@ function Stepper({
   status: string;
 }) {
   const isDelivered = status?.toUpperCase() === "DELIVERED";
+
   return (
     <div className="mt-8">
       <div className="relative flex items-start justify-between">
+        {/* Complete connector line */}
+        <span className="absolute left-[16.67%] right-[16.67%] top-5 h-1 -translate-y-1/2 bg-slate-200" />
+
+        {/* Active connector line */}
         <span
-          className={`absolute left-0 top-5 h-1 -translate-y-1/2 bg-gradient-to-r from-emerald-500 to-brand-blue ${
-            isDelivered ? "w-full" : "w-1/2"
-          }`}
-        />
-        <span
-          className={`absolute left-0 top-5 h-1 -translate-y-1/2 ${
+          className={`absolute left-[16.67%] top-5 h-1 -translate-y-1/2 ${
             isDelivered
-              ? "w-full bg-emerald-500"
-              : "w-1/2 bg-gradient-to-r from-emerald-500 to-brand-blue"
+              ? "right-[16.67%] bg-emerald-500"
+              : "right-1/2 bg-gradient-to-r from-emerald-500 to-brand-blue"
           }`}
         />
 
@@ -459,12 +459,14 @@ function Stepper({
           time={confirmedAt}
           icon={Package}
         />
+
         <Step
           state={isDelivered ? "done" : "current"}
           label="In Transit"
           time={isDelivered ? "" : inTransitAt}
           icon={Truck}
         />
+
         <Step
           state={isDelivered ? "done" : "pending"}
           label="Delivered"
