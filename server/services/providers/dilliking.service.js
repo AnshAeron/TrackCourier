@@ -79,7 +79,7 @@ export const trackDilliKing = async (trackingNo, trackingBaseUrl) => {
     date: formatDate(event.event_date),
     time: formatTime(event.event_time),
     location: event.location || "",
-    status: event.remark || "",
+    title: event.remark || "",
   }));
 
   const latestEvent = events[0];
