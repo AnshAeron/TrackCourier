@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const trackDilliKing = async (trackingNo) => {
+export const trackDilliKing = async (trackingNo, trackingBaseUrl) => {
   const airwayBill = String(trackingNo || "").trim();
 
   if (!airwayBill) {
@@ -46,7 +46,9 @@ export const trackDilliKing = async (trackingNo) => {
       carrier: "Dilli King",
       status: "Tracking Unavailable",
       service: "",
-      trackingUrl: "https://www.dilliking.com/tracking.php",
+      trackingUrl: trackingBaseUrl
+        ? trackingBaseUrl.replace("{}", encodeURIComponent(airwayBill))
+        : "",
       travelHistory: [],
       confirmedAT: "",
       inTransitAT: "",

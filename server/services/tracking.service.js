@@ -82,7 +82,10 @@ export const getTrackingDetails = async (consignmentA) => {
         );
         break;
       case "Dilli King":
-        shipment = await trackDilliKing(booking.consignment_b);
+        shipment = await trackDilliKing(
+          booking.consignment_b,
+          booking.tracking_base_url,
+        );
         break;
 
       default: {
